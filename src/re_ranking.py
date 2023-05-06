@@ -1,5 +1,6 @@
 #%%
 
+from typing import Any, Callable, Tuple
 from allennlp.common import Params, Tqdm
 from allennlp.common.util import prepare_environment
 from allennlp.data.dataloader import PyTorchDataLoader
@@ -16,6 +17,8 @@ from data_loading import *
 from model_knrm import *
 from model_tk import *
 
+from core_metrics import calculate_metrics_plain, load_qrels
+
 #%%
 
 # change paths to your data directory
@@ -26,6 +29,7 @@ config = {
     "train_data": "../data/Part-2/triples.train.tsv",
     "validation_data": "../data/Part-2/tuples.validation.tsv",
     "test_data":"../data/Part-2/tuples.test.tsv",
+    "qurels": "../data/Part-2/msmarco_qrels.txt"
 }
 
 #%%
@@ -62,18 +66,71 @@ print('Network:', model)
 # train
 #
 
-_triple_reader = IrTripleDatasetReader(lazy=True, max_doc_length=180, max_query_length=30)
-_triple_reader = _triple_reader.read(config["train_data"])
-_triple_reader.index_with(vocab)
-loader = PyTorchDataLoader(_triple_reader, batch_size=32)
+def create_loader(data_path: str, create_loader: Callable[[], Any]) -> PyTorchDataLoader:
+    _triple_reader = create_loader()
+    _triple_reader = _triple_reader.read(data_path)
+    _triple_reader.index_with(vocab)
+    return PyTorchDataLoader(_triple_reader, batch_size=32)
+
+loader = create_loader(
+    config["train_data"], 
+    lambda: IrTripleDatasetReader(lazy=True, max_doc_length=180, max_query_length=30))
+
+validation_loader = create_loader(
+    config["validation_data"], 
+    lambda: IrLabeledTupleDatasetReader(lazy=True, max_doc_length=180, max_query_length=30))
+
+# %%
+
+qrel_dict = load_qrels(config["qurels"])
 
 #%%
 
-for epoch in range(2):
+def train_batch(batch: Dict):
+    query = batch["query_tokens"]
+    doc_pos = batch["doc_pos_tokens"]
+    doc_neg = batch["doc_neg_tokens"]
 
+    # Zero your gradients for every batch!
+    optimizer.zero_grad()
+
+    # Make predictions for this batch
+    out_pos = model.forward(query, doc_pos)
+    out_neg = model.forward(query, doc_neg)
+
+    # Compute the loss and its gradients
+    loss = criterion(out_pos, out_neg)
+    loss.backward()
+
+    # Adjust learning weights
+    optimizer.step()
+
+def validation_batch(batch: Dict) -> List[Tuple[Any, Any, float]]:
+    query = batch["query_tokens"]
+    doc = batch["doc_tokens"]
+
+    out = model.forward(query, doc)
+
+    return list(
+        zip(batch["query_id"], batch["doc_id"], out.float().tolist())
+    )
+
+metrics = []
+
+for epoch in range(2):
     for batch in Tqdm.tqdm(loader):
-        # todo train loop
-        pass
+        train_batch(batch)
+    
+    unsorted_validations = [validation_batch(batch) for batch in Tqdm.tqdm(validation_loader)]
+    sorted_output = sorted(unsorted_validations, key = lambda x: x[2])
+    validations_dict = {}
+    for query_id, doc_id, ranking in sorted_output:
+        if query_id not in validations_dict:
+            validations_dict[query_id] = list()
+        validations_dict[query_id].append(doc_id)
+    
+    metrics.append(calculate_metrics_plain(validations_dict))
+
 
 #%%
 
