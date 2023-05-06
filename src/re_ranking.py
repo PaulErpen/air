@@ -1,3 +1,5 @@
+#%%
+
 from allennlp.common import Params, Tqdm
 from allennlp.common.util import prepare_environment
 from allennlp.data.dataloader import PyTorchDataLoader
@@ -14,15 +16,19 @@ from data_loading import *
 from model_knrm import *
 from model_tk import *
 
+#%%
+
 # change paths to your data directory
 config = {
-    "vocab_directory": "../data/allen_vocab_lower_10",
-    "pre_trained_embedding": "../data/glove.42B.300d.txt",
+    "vocab_directory": "../data/Part-2/allen_vocab_lower_10",
+    "pre_trained_embedding": "../data/Part-2/glove.42B.300d.txt",
     "model": "knrm",
-    "train_data": "../data/triples.train.tsv",
-    "validation_data": "../data/tuples.validation.tsv",
-    "test_data":"../data/tuples.test.tsv",
+    "train_data": "../data/Part-2/triples.train.tsv",
+    "validation_data": "../data/Part-2/tuples.validation.tsv",
+    "test_data":"../data/Part-2/tuples.test.tsv",
 }
+
+#%%
 
 #
 # data loading
@@ -42,11 +48,15 @@ if config["model"] == "knrm":
 elif config["model"] == "tk":
     model = TK(word_embedder, n_kernels=11, n_layers = 2, n_tf_dim = 300, n_tf_heads = 10)
 
+#%%
 
-# todo optimizer, loss 
+criterion = torch.nn.HingeEmbeddingLoss()
+optimizer = torch.optim.Adadelta(model.parameters())
 
 print('Model',config["model"],'total parameters:', sum(p.numel() for p in model.parameters() if p.requires_grad))
 print('Network:', model)
+
+#%%
 
 #
 # train
@@ -57,12 +67,15 @@ _triple_reader = _triple_reader.read(config["train_data"])
 _triple_reader.index_with(vocab)
 loader = PyTorchDataLoader(_triple_reader, batch_size=32)
 
+#%%
+
 for epoch in range(2):
 
     for batch in Tqdm.tqdm(loader):
         # todo train loop
         pass
 
+#%%
 
 #
 # eval (duplicate for validation inside train loop - but rename "loader", since
@@ -78,3 +91,5 @@ for batch in Tqdm.tqdm(loader):
     # todo test loop 
     # todo evaluation
     pass
+
+# %%
