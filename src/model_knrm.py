@@ -37,8 +37,11 @@ class KNRM(nn.Module):
 
 
     def forward(self, query: Dict[str, torch.Tensor], document: Dict[str, torch.Tensor]) -> torch.Tensor:
-
-        return output
+        translation_matrix = self.create_translation_matrix(query, document)
+        kernel_matrix = self.apply_kernel_functions(translation_matrix)
+        masked_kernel_matrix = self.apply_masking(kernel_matrix, query, document)
+        summed_kernels = self.apply_sums(masked_kernel_matrix)
+        return self.fully_connected(summed_kernels)
 
     def kernel_mus(self, n_kernels: int):
         """
@@ -108,6 +111,9 @@ class KNRM(nn.Module):
         masked_kernels = torch.mul(masked_kernels, document_pad_oov_mask.view(1, _, 1, doc_shape))
 
         return masked_kernels
+    
+    def apply_sums(self, kernel_matrix: torch.Tensor) -> torch.Tensor:
+        return torch.sum(torch.log(torch.sum(kernel_matrix, dim=-1)), dim=-1)
 
 
     @staticmethod

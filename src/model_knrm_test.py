@@ -41,7 +41,7 @@ class ModelKNRMTest(unittest.TestCase):
         self.assertEquals(model.mu.shape, (1, 1, 1, 10))
     
     def test_sigmas(self):
-        model = KNRM(word_embeddings=self.token_embedder, n_kernels=10) # type: ignore
+        model = KNRM(word_embeddings=self.word_embedder, n_kernels=10) # type: ignore
 
         self.assertEquals(model.sigma.shape, (1, 1, 1, 10))
 
@@ -72,7 +72,7 @@ class ModelKNRMTest(unittest.TestCase):
     
     def test_apply_kernel_functions(self):
         model = KNRM(word_embeddings=self.word_embedder, n_kernels=10) # type: ignore
-        translation_matrix = model.create_translation_matrix(self.batch["query_tokens"], self.batch["doc_pos_tokens"]) # type: ignore
+        translation_matrix = model.create_translation_matrix(self.batch["query_tokens"], self.batch["doc_pos_tokens"])
 
         self.assertEqual(
             model.apply_kernel_functions(translation_matrix).shape,
@@ -83,10 +83,23 @@ class ModelKNRMTest(unittest.TestCase):
         model = KNRM(word_embeddings=self.word_embedder, n_kernels=10) # type: ignore
         query = self.batch["query_tokens"]
         document = self.batch["doc_pos_tokens"]
-        translation_matrix = model.create_translation_matrix(query, document) # type: ignore
+        translation_matrix = model.create_translation_matrix(query, document)
         kernel_matrix = model.apply_kernel_functions(translation_matrix)
 
         self.assertEqual(
             model.apply_masking(kernel_matrix, query, document).shape,
             (10, 32, 14, 123)
+        )
+    
+    def test_apply_sums(self):
+        model = KNRM(word_embeddings=self.word_embedder, n_kernels=10) # type: ignore
+        query = self.batch["query_tokens"]
+        document = self.batch["doc_pos_tokens"]
+        translation_matrix = model.create_translation_matrix(query, document)
+        kernel_matrix = model.apply_kernel_functions(translation_matrix)
+        masked_kernel_matrix = model.apply_masking(kernel_matrix, query, document)
+
+        self.assertEqual(
+            model.apply_sums(masked_kernel_matrix).shape,
+            (10, 32)
         )
