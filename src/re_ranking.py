@@ -13,9 +13,9 @@ from allennlp.data.vocabulary import Vocabulary
 from allennlp.modules.token_embedders import Embedding
 from allennlp.modules.text_field_embedders import BasicTextFieldEmbedder
 
-from data_loading import *
-from model_knrm.model_knrm import *
-from model_tk.model_tk import *
+from .data_loading import *
+from .model_knrm.model_knrm import *
+from .model_tk.model_tk import *
 
 from src.core_metrics.core_metrics import calculate_metrics_plain, load_qrels
 
@@ -116,8 +116,9 @@ def validation_batch(batch: Dict) -> List[Tuple[Any, Any, float]]:
     )
 
 metrics = []
+best_mrr_at_10 = -1
 
-for epoch in range(2):
+for epoch in range(10):
     for batch in Tqdm.tqdm(loader):
         train_batch(batch)
     
@@ -129,7 +130,17 @@ for epoch in range(2):
             validations_dict[query_id] = list()
         validations_dict[query_id].append(doc_id)
     
-    metrics.append(calculate_metrics_plain(validations_dict))
+    metrics.append(calculate_metrics_plain(validations_dict, qrels))
+
+    is_best_model_yet = metrics[-1]['MRR@10'] > best_mrr_at_10
+    if is_best_model_yet:
+        best_mrr_at_10 = metrics[-1]['MRR@10']
+        torch.save(model.state_dict(), f'./models/{config["model"]}.pt')
+
+    if epoch > 2:
+        no_improvement_since_last_epoch = metrics[-1]['MRR@10'] < metrics[-2]['MRR@10']
+        if no_improvement_since_last_epoch:
+            break
 
 
 #%%

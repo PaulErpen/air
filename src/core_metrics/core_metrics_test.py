@@ -24,7 +24,7 @@ class CoreMetricsTests(unittest.TestCase):
         metrics = calculate_metrics_plain(self.ideal_ranking, self.qrel_dict)
         
         self.assertCountEqual(metrics.keys(), [
-            'MRR@10', # MRR: Mean Reciprocal Rank
+            'MRR@10', # MRR: Mean Reciprocal Rank, higher is better
             'Recall@10', 
             'QueriesWithNoRelevant@10', 
             'QueriesWithRelevant@10', 
