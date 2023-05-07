@@ -14,7 +14,7 @@ class CoreMetricsTests(unittest.TestCase):
         for query_id in self.qrel_dict.keys():
             self.ideal_ranking[query_id] = list(self.qrel_dict[query_id].keys())
         
-        all_doc_ids = list(set([int(doc_ids[0]) for doc_ids in self.ideal_ranking.values()]))
+        all_doc_ids = list(set([doc_ids[0] for doc_ids in self.ideal_ranking.values()]))
         print(all_doc_ids)
         self.any_ranking = {}
         for query_id, doc_ids in self.ideal_ranking.items():
@@ -24,7 +24,7 @@ class CoreMetricsTests(unittest.TestCase):
         metrics = calculate_metrics_plain(self.ideal_ranking, self.qrel_dict)
         
         self.assertCountEqual(metrics.keys(), [
-            'MRR@10', 
+            'MRR@10', # MRR: Mean Reciprocal Rank
             'Recall@10', 
             'QueriesWithNoRelevant@10', 
             'QueriesWithRelevant@10', 
@@ -42,7 +42,7 @@ class CoreMetricsTests(unittest.TestCase):
             'QueriesWithRelevant@1000', 
             'AverageRankGoldLabel@1000', 
             'MedianRankGoldLabel@1000', 
-            'nDCG@3', 
+            'nDCG@3', # nDCG: Normalized Discounted Cumulative Gain
             'nDCG@5', 
             'nDCG@10', 
             'nDCG@20', 
@@ -54,5 +54,4 @@ class CoreMetricsTests(unittest.TestCase):
     def test_calculate_metrics_keys_any(self):
         metrics = calculate_metrics_plain(self.any_ranking, self.qrel_dict)
         
-        print(metrics)
-        print(self.any_ranking)
+        print("Metrics:" + str(metrics))
