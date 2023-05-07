@@ -4,8 +4,8 @@ from allennlp.modules.token_embedders.embedding import Embedding
 from allennlp.data.vocabulary import Vocabulary
 from .model_knrm import KNRM
 from allennlp.common import Tqdm
-from allennlp.data.dataloader import PyTorchDataLoader,PyTorchDataLoader
-from .data_loading import IrTripleDatasetReader, IrLabeledTupleDatasetReader
+from allennlp.data.dataloader import PyTorchDataLoader
+from ..data_loading import IrTripleDatasetReader, IrLabeledTupleDatasetReader
 
 if __name__ == '__main__':
     unittest.main()
