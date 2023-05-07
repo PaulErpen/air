@@ -15,9 +15,9 @@ from allennlp.modules.text_field_embedders import BasicTextFieldEmbedder
 
 from data_loading import *
 from model_knrm.model_knrm import *
-from model_tk import *
+from model_tk.model_tk import *
 
-from core_metrics import calculate_metrics_plain, load_qrels
+from src.core_metrics.core_metrics import calculate_metrics_plain, load_qrels
 
 #%%
 
