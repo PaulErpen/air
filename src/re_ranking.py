@@ -1,5 +1,3 @@
-#%%
-
 from typing import Any, Callable, Tuple
 from allennlp.common import Params, Tqdm
 from allennlp.common.util import prepare_environment
@@ -13,13 +11,11 @@ from allennlp.data.vocabulary import Vocabulary
 from allennlp.modules.token_embedders import Embedding
 from allennlp.modules.text_field_embedders import BasicTextFieldEmbedder
 
-from .data_loading import *
-from .model_knrm.model_knrm import *
-from .model_tk.model_tk import *
+from data_loading import *
+from model_knrm.model_knrm import *
+from model_tk.model_tk import *
 
-from src.core_metrics.core_metrics import calculate_metrics_plain, load_qrels
-
-#%%
+from core_metrics.core_metrics import calculate_metrics_plain, load_qrels
 
 # change paths to your data directory
 config = {
@@ -32,12 +28,7 @@ config = {
     "qurels": "../data/Part-2/msmarco_qrels.txt"
 }
 
-#%%
-
-#
 # data loading
-#
-
 vocab = Vocabulary.from_files(config["vocab_directory"])
 tokens_embedder = Embedding(vocab=vocab,
                            pretrained_file= config["pre_trained_embedding"],
@@ -52,19 +43,11 @@ if config["model"] == "knrm":
 elif config["model"] == "tk":
     model = TK(word_embedder, n_kernels=11, n_layers = 2, n_tf_dim = 300, n_tf_heads = 10)
 
-#%%
-
 criterion = torch.nn.HingeEmbeddingLoss()
 optimizer = torch.optim.Adadelta(model.parameters())
 
 print('Model',config["model"],'total parameters:', sum(p.numel() for p in model.parameters() if p.requires_grad))
 print('Network:', model)
-
-#%%
-
-#
-# train
-#
 
 def create_loader(data_path: str, create_loader: Callable[[], Any]) -> PyTorchDataLoader:
     _triple_reader = create_loader()
@@ -80,11 +63,7 @@ validation_loader = create_loader(
     config["validation_data"], 
     lambda: IrLabeledTupleDatasetReader(lazy=True, max_doc_length=180, max_query_length=30))
 
-# %%
-
 qrel_dict = load_qrels(config["qurels"])
-
-#%%
 
 def train_batch(batch: Dict):
     query = batch["query_tokens"]
@@ -111,10 +90,9 @@ def validation_batch(batch: Dict) -> List[Tuple[Any, Any, float]]:
 
     out = model.forward(query, doc)
 
-    return list(
-        zip(batch["query_id"], batch["doc_id"], out.float().tolist())
-    )
+    return list(zip(batch["query_id"], batch["doc_id"], out.float().tolist()))
 
+# train
 metrics = []
 best_mrr_at_10 = -1
 
@@ -143,9 +121,6 @@ for epoch in range(10):
             break
 
 
-#%%
-
-#
 # eval (duplicate for validation inside train loop - but rename "loader", since
 # otherwise it will overwrite the original train iterator, which is instantiated outside the loop)
 #
@@ -159,5 +134,3 @@ for batch in Tqdm.tqdm(loader):
     # todo test loop 
     # todo evaluation
     pass
-
-# %%
