@@ -44,7 +44,7 @@ elif config["model"] == "tk":
     model = TK(word_embedder, n_kernels=11, n_layers = 2, n_tf_dim = 300, n_tf_heads = 10)
 
 criterion = torch.nn.HingeEmbeddingLoss()
-optimizer = torch.optim.Adadelta(model.parameters())
+optimizer = torch.optim.Adam(model.parameters())
 
 print('Model',config["model"],'total parameters:', sum(p.numel() for p in model.parameters() if p.requires_grad))
 print('Network:', model)
