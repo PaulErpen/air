@@ -41,7 +41,7 @@ class KNRM(nn.Module):
         kernel_matrix = self.apply_kernel_functions(translation_matrix)
         masked_kernel_matrix = self.apply_masking(kernel_matrix, query, document)
         summed_kernels = self.apply_sums(masked_kernel_matrix)
-        return self.fully_connected(summed_kernels)
+        return self.fully_connected(summed_kernels.T).squeeze(1)
 
     def kernel_mus(self, n_kernels: int):
         """
