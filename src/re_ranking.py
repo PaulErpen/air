@@ -14,7 +14,7 @@ from allennlp.modules.token_embedders import Embedding
 from allennlp.modules.text_field_embedders import BasicTextFieldEmbedder
 
 from data_loading import *
-from model_knrm import *
+from model_knrm.model_knrm import *
 from model_tk import *
 
 from core_metrics import calculate_metrics_plain, load_qrels
