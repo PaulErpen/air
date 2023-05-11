@@ -62,8 +62,9 @@ model = get_model(config["model"])
 criterion = torch.nn.HingeEmbeddingLoss()
 optimizer = torch.optim.Adam(model.parameters())
 
-model.cuda()
-criterion.cuda()
+if torch.cuda.is_available():
+    model.cuda()
+    criterion.cuda()
 
 print('Model', config["model"], 'total parameters:', sum(
     p.numel() for p in model.parameters() if p.requires_grad))
