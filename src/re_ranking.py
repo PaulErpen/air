@@ -5,6 +5,7 @@ from data_loading import *
 from allennlp.modules.text_field_embedders import BasicTextFieldEmbedder
 from allennlp.modules.token_embedders import Embedding
 from allennlp.data.vocabulary import Vocabulary
+from allennlp.nn.util import move_to_device
 import torch
 from typing import Any, Callable, Tuple
 from allennlp.common import Params, Tqdm
@@ -14,6 +15,18 @@ prepare_environment(Params({}))  # sets the seeds to be fixed
 
 
 print(f"Starting training script...")
+
+
+def get_device() -> torch.device:
+    if torch.cuda.is_available():
+        print("CUDA available. GPU will be used for training training.")
+        return torch.device("cuda:0")
+    else:
+        print("CUDA unavailable. CPU will be used for training.")
+        return torch.device("cpu:0")
+
+
+device = get_device()
 
 # change paths to your data directory
 config = {
@@ -49,6 +62,10 @@ model = get_model(config["model"])
 criterion = torch.nn.HingeEmbeddingLoss()
 optimizer = torch.optim.Adam(model.parameters())
 
+if torch.cuda.is_available():
+    model.cuda()
+    criterion.cuda()
+
 print('Model', config["model"], 'total parameters:', sum(
     p.numel() for p in model.parameters() if p.requires_grad))
 print('Network:', model)
@@ -70,10 +87,11 @@ validation_loader = create_loader(
     lambda: IrLabeledTupleDatasetReader(lazy=True, max_doc_length=180, max_query_length=30))
 
 qrel_dict = load_qrels(config["qurels"])
-label = torch.ones(loader.batch_size)
+label = torch.ones(loader.batch_size).to(device)
 
 
 def train_batch(batch: Dict):
+    batch = move_to_device(batch, device)
     query = batch["query_tokens"]
     doc_pos = batch["doc_pos_tokens"]
     doc_neg = batch["doc_neg_tokens"]
@@ -94,6 +112,7 @@ def train_batch(batch: Dict):
 
 
 def validation_batch(batch: Dict) -> List[Tuple[Any, Any, float]]:
+    batch = move_to_device(batch, device)
     query = batch["query_tokens"]
     doc = batch["doc_tokens"]
 
