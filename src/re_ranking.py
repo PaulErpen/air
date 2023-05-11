@@ -60,6 +60,7 @@ def create_loader(data_path: str, create_loader: Callable[[], Any]) -> PyTorchDa
     _triple_reader.index_with(vocab)
     return PyTorchDataLoader(_triple_reader, batch_size=32)
 
+print("Reading training and validation triples:")
 
 loader = create_loader(
     config["train_data"],
@@ -70,8 +71,6 @@ validation_loader = create_loader(
     lambda: IrLabeledTupleDatasetReader(lazy=True, max_doc_length=180, max_query_length=30))
 
 qrel_dict = load_qrels(config["qurels"])
-label = torch.ones(loader.batch_size)
-
 
 def train_batch(batch: Dict):
     query = batch["query_tokens"]
@@ -86,7 +85,7 @@ def train_batch(batch: Dict):
     out_neg = model.forward(query, doc_neg)
 
     # Compute the loss and its gradients
-    loss = criterion(out_pos, out_neg, label)
+    loss = criterion(out_pos, out_neg)
     loss.backward()
 
     # Adjust learning weights
@@ -105,6 +104,8 @@ def validation_batch(batch: Dict) -> List[Tuple[Any, Any, float]]:
 # train
 metrics = []
 best_mrr_at_10 = -1
+
+print("Starting training:")
 
 for epoch in range(10):
     for batch in Tqdm.tqdm(loader):
