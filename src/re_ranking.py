@@ -134,8 +134,11 @@ for epoch in range(10):
 
     is_best_model_yet = metrics[-1]['MRR@10'] > best_mrr_at_10
     if is_best_model_yet:
+        model_path = f'./models/{config.model}.pt'
         best_mrr_at_10 = metrics[-1]['MRR@10']
-        torch.save(model.state_dict(), f'./models/{config.model}.pt')
+        torch.save(model.state_dict(), model_path)
+        print(
+            f"New best model: MRR@10 = {best_mrr_at_10}; saved to \"{model_path}\"")
 
     if epoch > 2:
         no_improvement_since_last_epoch = metrics[-1]['MRR@10'] < metrics[-2]['MRR@10']
