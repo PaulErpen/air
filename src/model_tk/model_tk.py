@@ -49,7 +49,7 @@ class TK(nn.Module):
         document_pad_oov_mask = (document["tokens"]["tokens"] > 0).float()
 
         # shape: (batch, query_max,emb_dim)
-        query_embeddings = self.word_embeddings(query)chat
+        query_embeddings = self.word_embeddings(query)
         # shape: (batch, document_max,emb_dim)
         document_embeddings = self.word_embeddings(document)
 
