@@ -23,8 +23,10 @@ class KNRM(nn.Module):
         self.n_kernels = n_kernels
 
         # static - kernel size & magnitude variables
-        mu = torch.FloatTensor(self.kernel_mus(n_kernels)).view(1, 1, 1, n_kernels)
-        sigma = torch.FloatTensor(self.kernel_sigmas(n_kernels)).view(1, 1, 1, n_kernels)
+        mu = torch.FloatTensor(self.kernel_mus(
+            n_kernels)).view(1, 1, 1, n_kernels)
+        sigma = torch.FloatTensor(self.kernel_sigmas(
+            n_kernels)).view(1, 1, 1, n_kernels)
 
         self.register_buffer('mu', mu)
         self.register_buffer('sigma', sigma)
@@ -35,11 +37,11 @@ class KNRM(nn.Module):
         self.fully_connected = nn.Linear(n_kernels, 1, bias=False)
         nn.init.xavier_uniform_(self.fully_connected.weight)
 
-
     def forward(self, query: Dict[str, torch.Tensor], document: Dict[str, torch.Tensor]) -> torch.Tensor:
         translation_matrix = self.create_translation_matrix(query, document)
         kernel_matrix = self.apply_kernel_functions(translation_matrix)
-        masked_kernel_matrix = self.apply_masking(kernel_matrix, query, document)
+        masked_kernel_matrix = self.apply_masking(
+            kernel_matrix, query, document)
         summed_kernels = self.apply_sums(masked_kernel_matrix)
         return self.fully_connected(summed_kernels.T).squeeze(1)
 
@@ -81,41 +83,47 @@ class KNRM(nn.Module):
         # shape: (batch, document_max,emb_dim)
         document_embeddings = self.word_embeddings(document)
 
-        normed_queries = query_embeddings / torch.functional.norm(query_embeddings, dim=-1, keepdim=True)
-        normed_document = document_embeddings / torch.functional.norm(document_embeddings, dim=-1, keepdim=True)
+        normed_queries = query_embeddings / \
+            torch.functional.norm(query_embeddings, dim=-1, keepdim=True)
+        normed_document = document_embeddings / \
+            torch.functional.norm(document_embeddings, dim=-1, keepdim=True)
 
-        translation_matrix = torch.bmm(normed_queries, normed_document.permute(0, 2, 1))
+        translation_matrix = torch.bmm(
+            normed_queries, normed_document.permute(0, 2, 1))
 
         return translation_matrix
 
-
-    
     def apply_kernel_functions(self, translation_matrix: torch.Tensor) -> torch.Tensor:
         batch_size, query_size, doc_size = translation_matrix.shape
         K = torch.zeros(self.n_kernels, batch_size, query_size, doc_size)
         for k in range(self.n_kernels):
-            K[k] = KNRM.gaussian(translation_matrix, self.mu[..., k], self.sigma[..., k])
-        
+            K[k] = KNRM.gaussian(translation_matrix,
+                                 self.mu[..., k], self.sigma[..., k])
+
         return K
-    
+
     def apply_masking(self, kernel_matrix: torch.Tensor, query, document) -> torch.Tensor:
         # shape: (batch, query_max)
-        query_pad_oov_mask = (query["tokens"]["tokens"] > 0).float() # > 1 to also mask oov terms
+        # > 1 to also mask oov terms
+        query_pad_oov_mask = (query["tokens"]["tokens"] > 0).float()
         # shape: (batch, doc_max)
         document_pad_oov_mask = (document["tokens"]["tokens"] > 0).float()
 
         _, query_shape = query_pad_oov_mask.shape
         _, doc_shape = document_pad_oov_mask.shape
 
-        masked_kernels = torch.mul(kernel_matrix, query_pad_oov_mask.view(1, _, query_shape, 1))
-        masked_kernels = torch.mul(masked_kernels, document_pad_oov_mask.view(1, _, 1, doc_shape))
+        masked_kernels = torch.mul(
+            kernel_matrix, query_pad_oov_mask.view(1, _, query_shape, 1))
+        masked_kernels = torch.mul(
+            masked_kernels, document_pad_oov_mask.view(1, _, 1, doc_shape))
 
         return masked_kernels
-    
+
     def apply_sums(self, kernel_matrix: torch.Tensor) -> torch.Tensor:
         return torch.sum(torch.log(torch.sum(kernel_matrix, dim=-1)), dim=-1)
 
-
     @staticmethod
     def gaussian(x: torch.Tensor, mu: float, sigma: float):
-        return torch.exp(-torch.pow(x - mu, 2) / (2 * torch.pow(sigma, 2))) / torch.sqrt(2 * torch.tensor([3.141592653589793], dtype=torch.float32))
+        return torch.exp(
+            - torch.pow(x - mu, 2) / (2*torch.pow(sigma, 2))
+        )
