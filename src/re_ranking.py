@@ -1,3 +1,4 @@
+from config.config import create_base_config
 from core_metrics.core_metrics import calculate_metrics_plain, load_qrels
 from model_tk.model_tk import *
 from model_knrm.model_knrm import *
@@ -12,7 +13,6 @@ from allennlp.common import Params, Tqdm
 from allennlp.common.util import prepare_environment
 from allennlp.data.dataloader import PyTorchDataLoader
 prepare_environment(Params({}))  # sets the seeds to be fixed
-
 
 print(f"Starting training script...")
 
@@ -29,20 +29,12 @@ def get_device() -> torch.device:
 device = get_device()
 
 # change paths to your data directory
-config = {
-    "vocab_directory": "../data/Part-2/allen_vocab_lower_10",
-    "pre_trained_embedding": "../data/Part-2/glove.42B.300d.txt",
-    "model": "knrm",
-    "train_data": "../data/Part-2/triples.train.tsv",
-    "validation_data": "../data/Part-2/tuples.validation.tsv",
-    "test_data": "../data/Part-2/tuples.test.tsv",
-    "qurels": "../data/Part-2/msmarco_qrels.txt"
-}
+config = create_base_config()
 
 # data loading
-vocab = Vocabulary.from_files(config["vocab_directory"])
+vocab = Vocabulary.from_files(config.vocab_directory)
 tokens_embedder = Embedding(vocab=vocab,
-                            pretrained_file=config["pre_trained_embedding"],
+                            pretrained_file=config.pre_trained_embedding,
                             embedding_dim=300,
                             trainable=True,
                             padding_index=0)
@@ -57,7 +49,7 @@ def get_model(model_name: str) -> torch.nn.Module:
                   n_layers=2, n_tf_dim=300, n_tf_heads=10)
 
 
-model = get_model(config["model"])
+model = get_model(config.model)
 
 criterion = torch.nn.MarginRankingLoss(margin=1, reduction='mean')
 optimizer = torch.optim.Adam(model.parameters())
@@ -66,7 +58,7 @@ if torch.cuda.is_available():
     model.cuda()
     criterion.cuda()
 
-print('Model', config["model"], 'total parameters:', sum(
+print('Model', config.model, 'total parameters:', sum(
     p.numel() for p in model.parameters() if p.requires_grad))
 print('Network:', model)
 
@@ -79,15 +71,16 @@ def create_loader(data_path: str, create_loader: Callable[[], Any]) -> PyTorchDa
 
 
 loader = create_loader(
-    config["train_data"],
+    config.train_data,
     lambda: IrTripleDatasetReader(lazy=True, max_doc_length=180, max_query_length=30))
 
 validation_loader = create_loader(
-    config["validation_data"],
+    config.validation_data,
     lambda: IrLabeledTupleDatasetReader(lazy=True, max_doc_length=180, max_query_length=30))
 
-qrel_dict = load_qrels(config["qurels"])
+qrel_dict = load_qrels(config.qurels)
 true_labels = torch.ones(loader.batch_size).to(device)
+
 
 def train_batch(batch: Dict):
     batch = move_to_device(batch, device)
@@ -142,7 +135,7 @@ for epoch in range(10):
     is_best_model_yet = metrics[-1]['MRR@10'] > best_mrr_at_10
     if is_best_model_yet:
         best_mrr_at_10 = metrics[-1]['MRR@10']
-        torch.save(model.state_dict(), f'./models/{config["model"]}.pt')
+        torch.save(model.state_dict(), f'./models/{config.model}.pt')
 
     if epoch > 2:
         no_improvement_since_last_epoch = metrics[-1]['MRR@10'] < metrics[-2]['MRR@10']
@@ -156,7 +149,7 @@ for epoch in range(10):
 
 _tuple_reader = IrLabeledTupleDatasetReader(
     lazy=True, max_doc_length=180, max_query_length=30)
-_tuple_reader = _tuple_reader.read(config["test_data"])
+_tuple_reader = _tuple_reader.read(config.test_data)
 _tuple_reader.index_with(vocab)
 loader = PyTorchDataLoader(_tuple_reader, batch_size=128)
 

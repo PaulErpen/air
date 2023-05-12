@@ -30,7 +30,11 @@ class TK(nn.Module):
         self.register_buffer('mu', mu)
         self.register_buffer('sigma', sigma)
 
-        #todo
+        # create contextual encoding sinusoid curves
+        self.register_buffer("")
+
+        # create transformer 
+
 
     def forward(self, query: Dict[str, torch.Tensor], document: Dict[str, torch.Tensor]) -> torch.Tensor:
         # pylint: disable=arguments-differ
@@ -45,7 +49,7 @@ class TK(nn.Module):
         document_pad_oov_mask = (document["tokens"]["tokens"] > 0).float()
 
         # shape: (batch, query_max,emb_dim)
-        query_embeddings = self.word_embeddings(query)
+        query_embeddings = self.word_embeddings(query)chat
         # shape: (batch, document_max,emb_dim)
         document_embeddings = self.word_embeddings(document)
 
@@ -84,3 +88,15 @@ class TK(nn.Module):
 
         l_sigma += [0.5 * bin_size] * (n_kernels - 1)
         return l_sigma
+
+    def handle_contextualization(self):
+        pass
+
+    def create_term_by_term_interaction_matrix(self):
+        pass
+
+    def apply_kernel_functions(self):
+        pass
+
+    def handle_kernel_pooling(self):
+        pass
