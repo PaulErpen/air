@@ -96,6 +96,8 @@ class KNRM(nn.Module):
     def apply_kernel_functions(self, translation_matrix: torch.Tensor) -> torch.Tensor:
         batch_size, query_size, doc_size = translation_matrix.shape
         K = torch.zeros(self.n_kernels, batch_size, query_size, doc_size)
+        if torch.cuda.is_available():
+            K = K.cuda()
         for k in range(self.n_kernels):
             K[k] = KNRM.gaussian(translation_matrix,
                                  self.mu[..., k], self.sigma[..., k])

@@ -59,7 +59,7 @@ def get_model(model_name: str) -> torch.nn.Module:
 
 model = get_model(config["model"])
 
-criterion = torch.nn.HingeEmbeddingLoss()
+criterion = torch.nn.MarginRankingLoss(margin=1, reduction='mean')
 optimizer = torch.optim.Adam(model.parameters())
 
 if torch.cuda.is_available():
@@ -87,8 +87,7 @@ validation_loader = create_loader(
     lambda: IrLabeledTupleDatasetReader(lazy=True, max_doc_length=180, max_query_length=30))
 
 qrel_dict = load_qrels(config["qurels"])
-label = torch.ones(loader.batch_size).to(device)
-
+true_labels = torch.ones(loader.batch_size).to(device)
 
 def train_batch(batch: Dict):
     batch = move_to_device(batch, device)
@@ -104,7 +103,7 @@ def train_batch(batch: Dict):
     out_neg = model.forward(query, doc_neg)
 
     # Compute the loss and its gradients
-    loss = criterion(out_pos, out_neg, label)
+    loss = criterion(out_pos, out_neg, true_labels)
     loss.backward()
 
     # Adjust learning weights
