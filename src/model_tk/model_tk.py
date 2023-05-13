@@ -21,6 +21,11 @@ class TK(nn.Module):
 
         super(TK, self).__init__()
 
+        self.n_kernels = n_kernels
+        self.n_layers = n_layers
+        self.n_tf_dim = n_tf_dim
+        self.n_tf_heads = n_tf_heads
+
         self.word_embeddings = word_embeddings
 
         # static - kernel size & magnitude variables
@@ -118,7 +123,7 @@ class TK(nn.Module):
         if torch.cuda.is_available():
             K = K.cuda()
         for k in range(self.n_kernels):
-            K[k] = KNRM.gaussian(translation_matrix,
+            K[k] = TK.gaussian(translation_matrix,
                                  self.mu[..., k], self.sigma[..., k])
 
         return K

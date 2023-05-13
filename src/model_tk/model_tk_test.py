@@ -55,3 +55,180 @@ class ModelTKTest(unittest.TestCase):
         )
 
         self.assertTrue(isinstance(tk, TK))
+
+    def test_positional_encoding(self):
+        tk = TK(
+            word_embeddings=self.word_embedder,
+            n_kernels=self.n_kernels,
+            n_layers=self.n_layers,
+            n_tf_dim=self.n_tf_dim,
+            n_tf_heads=self.n_tf_heads,
+        )
+
+        query_embeddings = tk.word_embeddings(self.train_batch["query_tokens"])
+
+        self.assertEqual(
+            tk.positional_encoding(query_embeddings).shape,
+            query_embeddings.shape
+        )
+
+    def test_transformer(self):
+        tk = TK(
+            word_embeddings=self.word_embedder,
+            n_kernels=self.n_kernels,
+            n_layers=self.n_layers,
+            n_tf_dim=self.n_tf_dim,
+            n_tf_heads=self.n_tf_heads,
+        )
+
+        query_embeddings = tk.word_embeddings(self.train_batch["query_tokens"])
+        contextualized_query_embeddings = tk.positional_encoding(
+            query_embeddings)
+
+        self.assertEqual(
+            tk.transformer(contextualized_query_embeddings).shape,
+            (32, 14, 300)
+        )
+
+    def test_translation_matrix(self):
+        tk = TK(
+            word_embeddings=self.word_embedder,
+            n_kernels=self.n_kernels,
+            n_layers=self.n_layers,
+            n_tf_dim=self.n_tf_dim,
+            n_tf_heads=self.n_tf_heads,
+        )
+        query_embeddings = tk.word_embeddings(self.train_batch["query_tokens"])
+        document_embeddings = tk.word_embeddings(
+            self.train_batch["doc_pos_tokens"])
+        contextualized_query_embeddings = tk.positional_encoding(
+            query_embeddings)
+        contextualized_document_embeddings = tk.positional_encoding(
+            document_embeddings)
+        transformed_query_embeddings = tk.transformer(
+            contextualized_query_embeddings)
+        transformed_document_embeddings = tk.transformer(
+            contextualized_document_embeddings)
+
+        self.assertEquals(
+            tk.create_translation_matrix(
+                transformed_query_embeddings, transformed_document_embeddings).shape,
+            (32, 14, 123)
+        )
+
+    def test_kernel_matrix(self):
+        tk = TK(
+            word_embeddings=self.word_embedder,
+            n_kernels=self.n_kernels,
+            n_layers=self.n_layers,
+            n_tf_dim=self.n_tf_dim,
+            n_tf_heads=self.n_tf_heads,
+        )
+        query_embeddings = tk.word_embeddings(self.train_batch["query_tokens"])
+        document_embeddings = tk.word_embeddings(
+            self.train_batch["doc_pos_tokens"])
+        contextualized_query_embeddings = tk.positional_encoding(
+            query_embeddings)
+        contextualized_document_embeddings = tk.positional_encoding(
+            document_embeddings)
+        transformed_query_embeddings = tk.transformer(
+            contextualized_query_embeddings)
+        transformed_document_embeddings = tk.transformer(
+            contextualized_document_embeddings)
+        translation_matrix = tk.create_translation_matrix(
+            transformed_query_embeddings, transformed_document_embeddings)
+
+        self.assertEquals(
+            tk.apply_kernel_functions(translation_matrix).shape,
+            (self.n_kernels, 32, 14, 123)
+        )
+
+    def test_masked_kernel_matrix(self):
+        tk = TK(
+            word_embeddings=self.word_embedder,
+            n_kernels=self.n_kernels,
+            n_layers=self.n_layers,
+            n_tf_dim=self.n_tf_dim,
+            n_tf_heads=self.n_tf_heads,
+        )
+        query_embeddings = tk.word_embeddings(self.train_batch["query_tokens"])
+        document_embeddings = tk.word_embeddings(
+            self.train_batch["doc_pos_tokens"])
+        contextualized_query_embeddings = tk.positional_encoding(
+            query_embeddings)
+        contextualized_document_embeddings = tk.positional_encoding(
+            document_embeddings)
+        transformed_query_embeddings = tk.transformer(
+            contextualized_query_embeddings)
+        transformed_document_embeddings = tk.transformer(
+            contextualized_document_embeddings)
+        translation_matrix = tk.create_translation_matrix(
+            transformed_query_embeddings, transformed_document_embeddings)
+        kernel_matrix = tk.apply_kernel_functions(translation_matrix)
+
+        self.assertEquals(
+            tk.apply_masking(
+                kernel_matrix, self.train_batch["query_tokens"], self.train_batch["doc_pos_tokens"]).shape,
+            (self.n_kernels, 32, 14, 123)
+        )
+
+    def test_summed_kernels(self):
+        tk = TK(
+            word_embeddings=self.word_embedder,
+            n_kernels=self.n_kernels,
+            n_layers=self.n_layers,
+            n_tf_dim=self.n_tf_dim,
+            n_tf_heads=self.n_tf_heads,
+        )
+        query_embeddings = tk.word_embeddings(self.train_batch["query_tokens"])
+        document_embeddings = tk.word_embeddings(
+            self.train_batch["doc_pos_tokens"])
+        contextualized_query_embeddings = tk.positional_encoding(
+            query_embeddings)
+        contextualized_document_embeddings = tk.positional_encoding(
+            document_embeddings)
+        transformed_query_embeddings = tk.transformer(
+            contextualized_query_embeddings)
+        transformed_document_embeddings = tk.transformer(
+            contextualized_document_embeddings)
+        translation_matrix = tk.create_translation_matrix(
+            transformed_query_embeddings, transformed_document_embeddings)
+        kernel_matrix = tk.apply_kernel_functions(translation_matrix)
+        masked_kernel_matrix = tk.apply_masking(
+            kernel_matrix, self.train_batch["query_tokens"], self.train_batch["doc_pos_tokens"])
+
+        self.assertEquals(
+            tk.apply_sums(masked_kernel_matrix).shape,
+            (self.n_kernels, 32)
+        )
+
+    def test_fully_connected(self):
+        tk = TK(
+            word_embeddings=self.word_embedder,
+            n_kernels=self.n_kernels,
+            n_layers=self.n_layers,
+            n_tf_dim=self.n_tf_dim,
+            n_tf_heads=self.n_tf_heads,
+        )
+        query_embeddings = tk.word_embeddings(self.train_batch["query_tokens"])
+        document_embeddings = tk.word_embeddings(
+            self.train_batch["doc_pos_tokens"])
+        contextualized_query_embeddings = tk.positional_encoding(
+            query_embeddings)
+        contextualized_document_embeddings = tk.positional_encoding(
+            document_embeddings)
+        transformed_query_embeddings = tk.transformer(
+            contextualized_query_embeddings)
+        transformed_document_embeddings = tk.transformer(
+            contextualized_document_embeddings)
+        translation_matrix = tk.create_translation_matrix(
+            transformed_query_embeddings, transformed_document_embeddings)
+        kernel_matrix = tk.apply_kernel_functions(translation_matrix)
+        masked_kernel_matrix = tk.apply_masking(
+            kernel_matrix, self.train_batch["query_tokens"], self.train_batch["doc_pos_tokens"])
+        summed_kernels = tk.apply_sums(masked_kernel_matrix)
+
+        self.assertEquals(
+            tk.fully_connected(summed_kernels.T).shape,
+            (32, 1)
+        )
