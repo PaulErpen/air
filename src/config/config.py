@@ -73,12 +73,12 @@ class Config:
 
 def create_base_config():
     return Config(
-        vocab_directory="../data/Part-2/allen_vocab_lower_10",
-        pre_trained_embedding="../data/Part-2/glove.42B.300d.txt",
+        vocab_directory="./data/Part-2/allen_vocab_lower_10",
+        pre_trained_embedding="./data/Part-2/glove.42B.300d.txt",
         model="knrm",
-        train_data="../data/Part-2/triples.train.tsv",
-        validation_data="../data/Part-2/msmarco_tuples.validation.tsv",
-        test_data="../data/Part-2/msmarco_tuples.test.tsv",
-        qurels="../data/Part-2/msmarco_qrels.txt",
-        save_models_dir="../models"
+        train_data="./data/Part-2/triples.train.tsv",
+        validation_data="./data/Part-2/msmarco_tuples.validation.tsv",
+        test_data="./data/Part-2/msmarco_tuples.test.tsv",
+        qurels="./data/Part-2/msmarco_qrels.txt",
+        save_models_dir="./models"
     )

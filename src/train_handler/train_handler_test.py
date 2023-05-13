@@ -8,9 +8,6 @@ import shutil
 
 class TrainHandlerTest(unittest.TestCase):
     def setUp(self):
-        self.initial_cwd = os.getcwd()
-        os.chdir(os.path.join(os.getcwd(), "./src"))
-
         self.test_model_dir = "./test_models"
         os.mkdir(self.test_model_dir)
 
@@ -61,7 +58,6 @@ class TrainHandlerTest(unittest.TestCase):
 
     def tearDown(self):
         shutil.rmtree(self.test_model_dir)
-        os.chdir(self.initial_cwd)
 
 # ---------------------- MOCKS ---------------------
 
