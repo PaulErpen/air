@@ -1,15 +1,16 @@
 import torch
-from ..config.config import Config, create_base_config
+from ..config.config import Config
 from ..core_metrics.core_metrics import calculate_metrics_plain, load_qrels
-from ..model_tk.model_tk import *
-from ..model_knrm.model_knrm import *
-from ..data_loading import *
-from allennlp.modules.text_field_embedders import BasicTextFieldEmbedder
+from ..model_tk.model_tk import TK
+from ..model_knrm.model_knrm import KNRM
+from ..data_loading import IrTripleDatasetReader, IrLabeledTupleDatasetReader
+from allennlp.modules.text_field_embedders import BasicTextFieldEmbedder, TextFieldEmbedder
 from allennlp.modules.token_embedders import Embedding
 from allennlp.data.vocabulary import Vocabulary
 from allennlp.nn.util import move_to_device
 import torch
-from typing import Any, Callable, Tuple, Dict
+import torch.nn
+from typing import Any, Callable, Tuple, Dict, List
 from allennlp.common import Params, Tqdm
 from allennlp.common.util import prepare_environment
 from allennlp.data.dataloader import PyTorchDataLoader
@@ -83,7 +84,7 @@ class TrainHandler():
 
     def __init__(self,
                  model_type: str,
-                 model: nn.Module,
+                 model: torch.nn.Module,
                  vocab: Vocabulary,
                  word_embedder: BasicTextFieldEmbedder,
                  criterion,

@@ -2,10 +2,10 @@ import torch
 import math
 import torch.nn as nn
 
+
 class PositionalEncoding(nn.Module):
     def __init__(self, dimensions, max_seq_len=5000):
         super(PositionalEncoding, self).__init__()
-        self.dropout = nn.Dropout(p=0.1)
 
         # Compute the positional encodings in advance
         pe = torch.zeros(max_seq_len, dimensions)
@@ -20,4 +20,4 @@ class PositionalEncoding(nn.Module):
 
     def forward(self, x):
         x = x + self.pe[:, :x.size(1)]
-        return self.dropout(x)
+        return x

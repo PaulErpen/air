@@ -5,6 +5,7 @@ import torch.nn as nn
 from torch.autograd import Variable
 
 from allennlp.modules.text_field_embedders import TextFieldEmbedder
+from .positional_encoding.positional_encoding import PositionalEncoding
 
 
 class TK(nn.Module):
@@ -15,26 +16,31 @@ class TK(nn.Module):
     def __init__(self,
                  word_embeddings: TextFieldEmbedder,
                  n_kernels: int,
-                 n_layers:int,
-                 n_tf_dim:int,
-                 n_tf_heads:int):
+                 n_layers: int,
+                 n_tf_dim: int,
+                 n_tf_heads: int):
 
         super(TK, self).__init__()
 
         self.word_embeddings = word_embeddings
 
         # static - kernel size & magnitude variables
-        mu = torch.FloatTensor(self.kernel_mus(n_kernels)).view(1, 1, 1, n_kernels)
-        sigma = torch.FloatTensor(self.kernel_sigmas(n_kernels)).view(1, 1, 1, n_kernels)
+        mu = torch.FloatTensor(self.kernel_mus(
+            n_kernels)).view(1, 1, 1, n_kernels)
+        sigma = torch.FloatTensor(self.kernel_sigmas(
+            n_kernels)).view(1, 1, 1, n_kernels)
 
         self.register_buffer('mu', mu)
         self.register_buffer('sigma', sigma)
 
-        # create contextual encoding sinusoid curves
-        self.register_buffer("")
+        embedding_dimension = self.word_embeddings.get_output_dim()
 
-        # create transformer 
+        # setting up the contextualization using sinusoid curves
+        self.positional_encoding = PositionalEncoding(embedding_dimension)
 
+        # create transformer with attention
+        encoder = nn.TransformerEncoderLayer(embedding_dimension, 10)
+        self.transformer = nn.TransformerEncoder(encoder, 2)
 
     def forward(self, query: Dict[str, torch.Tensor], document: Dict[str, torch.Tensor]) -> torch.Tensor:
         # pylint: disable=arguments-differ
@@ -44,7 +50,8 @@ class TK(nn.Module):
         # -------------------------------------------------------
 
         # shape: (batch, query_max)
-        query_pad_oov_mask = (query["tokens"]["tokens"] > 0).float() # > 1 to also mask oov terms
+        # > 1 to also mask oov terms
+        query_pad_oov_mask = (query["tokens"]["tokens"] > 0).float()
         # shape: (batch, doc_max)
         document_pad_oov_mask = (document["tokens"]["tokens"] > 0).float()
 
@@ -53,7 +60,7 @@ class TK(nn.Module):
         # shape: (batch, document_max,emb_dim)
         document_embeddings = self.word_embeddings(document)
 
-        #todo
+        # todo
 
         return output
 
