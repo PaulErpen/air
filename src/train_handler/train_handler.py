@@ -14,6 +14,8 @@ from typing import Any, Callable, Tuple, Dict, List
 from allennlp.common import Params, Tqdm
 from allennlp.common.util import prepare_environment
 from allennlp.data.dataloader import PyTorchDataLoader
+import pandas as pd
+import os
 
 BATCH_SIZE = 32
 
@@ -203,3 +205,98 @@ class TrainHandler():
                 no_improvement_since_last_epoch = metrics[-1]['MRR@10'] < metrics[-2]['MRR@10']
                 if no_improvement_since_last_epoch:
                     break
+
+    def evaluate(self):
+        test_data_sets = [
+            ("ms marco", "../data/Part-2/msmarco_tuples.test.tsv", "msmarco_qrels.txt"),
+            ("fira 22", "../data/Part-2/fira-22.tuples.tsv",
+             "fira-22.baseline-qrels.tsv")
+        ]
+
+        best_knrm = get_model("knrm", self.word_embedder)
+        best_knrm.load_state_dict(torch.load('/some/path/dqdwqdq_best.pth'))
+
+        best_tk = get_model("tk", self.word_embedder)
+        best_tk.load_state_dict(torch.load('/some/path/dqdwqdq_best.pth'))
+
+        models = [
+            ("knrm", best_knrm),
+            ("tk", best_tk)
+        ]
+
+        summary_dict = {
+            "model": [],
+            "data_set": [],
+            "qrels": [],
+            'MRR@10': [],
+            'Recall@10': [],
+            'QueriesWithNoRelevant@10': [],
+            'QueriesWithRelevant@10': [],
+            'AverageRankGoldLabel@10': [],
+            'MedianRankGoldLabel@10': [],
+            'MRR@20': [],
+            'Recall@20': [],
+            'QueriesWithNoRelevant@20': [],
+            'QueriesWithRelevant@20': [],
+            'AverageRankGoldLabel@20': [],
+            'MedianRankGoldLabel@20': [],
+            'MRR@1000': [],
+            'Recall@1000': [],
+            'QueriesWithNoRelevant@1000': [],
+            'QueriesWithRelevant@1000': [],
+            'AverageRankGoldLabel@1000': [],
+            'MedianRankGoldLabel@1000': [],
+            'nDCG@3': [],
+            'nDCG@5': [],
+            'nDCG@10': [],
+            'nDCG@20': [],
+            'nDCG@1000': [],
+            'QueriesRanked': [],
+            'MAP@1000': []
+        }
+
+        for data_set_name, path_data, path_qrels in test_data_sets:
+
+            if not os.path.exists(path_data):
+                raise Exception(f"Path \"{path_data}\" does not exist!")
+            if not os.path.exists(path_qrels):
+                raise Exception(f"Path \"{path_qrels}\" does not exist!")
+
+            for model_name, model in models:
+
+                _tuple_reader = IrLabeledTupleDatasetReader(
+                    lazy=True, max_doc_length=180, max_query_length=30)
+                _tuple_reader = _tuple_reader.read(path_data)
+                _tuple_reader.index_with(self.vocab)
+                loader = PyTorchDataLoader(_tuple_reader, batch_size=128)
+
+                scores = []
+                for batch in Tqdm.tqdm(loader):
+                    batch = self.move_to_device(batch)
+                    query_tokens = batch['query_tokens']
+                    doc_tokens = batch['doc_tokens']
+                    scores = model(query_tokens, doc_tokens)
+                    scores.extend(list(
+                        map(list, zip(batch['query_id'], batch['doc_id'], scores.tolist()))))
+
+                sorted_output = sorted(
+                    scores, key=lambda x: x[2])
+                validations_dict = {}
+                for query_id, doc_id, ranking in sorted_output:
+                    if query_id not in validations_dict:
+                        validations_dict[query_id] = list()
+                    validations_dict[query_id].append(doc_id)
+
+                metrics = self.metric_calculator.calculate_metrics(
+                    validations_dict, self.qrels)
+
+                summary_dict["model"].append(model_name)
+                summary_dict["data_set"].append(data_set_name)
+                summary_dict["qrels"].append(path_qrels)
+
+                for k, v in metrics.items():
+                    summary_dict[k].append(v)
+
+        pd.DataFrame(
+            summary_dict
+        ).to_csv("./summary.csv")

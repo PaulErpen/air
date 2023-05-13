@@ -56,6 +56,27 @@ class TrainHandlerTest(unittest.TestCase):
 
         self.assertTrue(len(models) == 10)
 
+    def test_train_loop_early_stopping(self):
+        handler = TrainHandler(
+            model_type="mocked",
+            model=MockedModel(),
+            vocab=None,
+            word_embedder=None,
+            criterion=mocked_criterion,
+            optimizer=MockedOptimizer(),
+            qrels=None,
+            train_data_loader=MockDataLoader(),
+            validation_data_loader=MockDataLoader(),
+            metric_calculator=MockedMetricsCalculator(increase=False),
+            save_to_disk=True,
+            save_models_dir=self.test_model_dir)
+
+        handler.train()
+
+        models = os.listdir(self.test_model_dir)
+
+        self.assertTrue(len(models) == 1)
+
     def tearDown(self):
         shutil.rmtree(self.test_model_dir)
 
@@ -63,11 +84,15 @@ class TrainHandlerTest(unittest.TestCase):
 
 
 class MockedMetricsCalculator:
-    def __init__(self):
-        self.calls = 0
+    def __init__(self, increase=True):
+        self.calls = 1
+        self.increase = increase
 
     def calculate_metrics(self, a, b):
-        self.calls = self.calls + 1
+        if self.increase:
+            self.calls = self.calls + 1
+        else:
+            self.calls = self.calls / 2
         metric_keys = ['MRR@10',  # MRR: Mean Reciprocal Rank, higher is better
                        'Recall@10',
                        'QueriesWithNoRelevant@10',
