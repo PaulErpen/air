@@ -33,6 +33,11 @@ def create_loader(data_path: str, create_loader: Callable[[], Any], vocab: Vocab
     return Tqdm.tqdm(PyTorchDataLoader(_triple_reader, batch_size=BATCH_SIZE))
 
 
+class PlainMetricsCalculator:
+    def calculate_metrics(self, ranking, qrels, binarization_point=1.0, return_per_query=False):
+        return calculate_metrics_plain(ranking, qrels, binarization_point, return_per_query)
+
+
 class TrainHandler():
     @classmethod
     def from_config(cls, config: Config):
@@ -71,8 +76,9 @@ class TrainHandler():
             qrels=qrels,
             train_data_loader=train_data_loader,
             validation_data_loader=validation_data_loader,
-            metric_calculator=calculate_metrics_plain,
-            save_to_disk=True
+            metric_calculator=PlainMetricsCalculator(),
+            save_to_disk=True,
+            save_models_dir=config.save_models_dir
         )
 
     def __init__(self,
@@ -86,7 +92,8 @@ class TrainHandler():
                  train_data_loader,
                  validation_data_loader,
                  metric_calculator,
-                 save_to_disk: bool):
+                 save_to_disk: bool,
+                 save_models_dir: str):
 
         self.model_type = model_type
         self.model = model
@@ -99,6 +106,7 @@ class TrainHandler():
         self.validation_data_loader = validation_data_loader
         self.metric_calculator = metric_calculator
         self.save_to_disk = save_to_disk
+        self.save_models_dir = save_models_dir
 
         self.device = self.get_device()
 
@@ -178,14 +186,14 @@ class TrainHandler():
                     validations_dict[query_id] = list()
                 validations_dict[query_id].append(doc_id)
 
-            metrics.append(self.metric_calculator(
+            metrics.append(self.metric_calculator.calculate_metrics(
                 validations_dict, self.qrels))
 
             is_best_model_yet = metrics[-1]['MRR@10'] > best_mrr_at_10
             if is_best_model_yet:
                 best_mrr_at_10 = metrics[-1]['MRR@10']
                 if self.save_to_disk:
-                    model_path = f'./models/{self.model_type}.pt'
+                    model_path = f'{self.save_models_dir}/{self.model_type}-epoch-{epoch}.pt'
                     torch.save(self.model.state_dict(), model_path)
                     print(
                         f"New best model: MRR@10 = {best_mrr_at_10}; saved to \"{model_path}\"")

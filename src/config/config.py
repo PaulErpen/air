@@ -10,7 +10,8 @@ class Config:
                  train_data: str,
                  validation_data: str,
                  test_data: str,
-                 qurels: str):
+                 qurels: str,
+                 save_models_dir: str):
         self.vocab_directory: str = vocab_directory
         self.pre_trained_embedding: str = pre_trained_embedding
         self.model: ModelType = model
@@ -18,6 +19,7 @@ class Config:
         self.validation_data: str = validation_data
         self.test_data: str = test_data
         self.qurels: str = qurels
+        self.save_models_dir: str = save_models_dir
         self.validate()
 
     def validate(self):
@@ -61,6 +63,13 @@ class Config:
         if not os.path.isfile(self.qurels):
             raise Exception("Configuration-Error: qurels is not a file!")
 
+        if not os.path.exists(self.save_models_dir):
+            raise Exception(
+                "Configuration-Error: save_models_dir does not exist!")
+        if not os.path.isdir(self.save_models_dir):
+            raise Exception(
+                "Configuration-Error: save_models_dir is not a directory!")
+
 
 def create_base_config():
     return Config(
@@ -71,4 +80,5 @@ def create_base_config():
         validation_data="../data/Part-2/msmarco_tuples.validation.tsv",
         test_data="../data/Part-2/msmarco_tuples.test.tsv",
         qurels="../data/Part-2/msmarco_qrels.txt",
+        save_models_dir="../models"
     )
