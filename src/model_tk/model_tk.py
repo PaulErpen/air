@@ -3,7 +3,6 @@ from typing import Dict, Iterator, List
 import torch
 import torch.nn as nn
 from torch.autograd import Variable
-
 from allennlp.modules.text_field_embedders import TextFieldEmbedder
 from .positional_encoding.positional_encoding import PositionalEncoding
 
@@ -39,30 +38,36 @@ class TK(nn.Module):
         self.positional_encoding = PositionalEncoding(embedding_dimension)
 
         # create transformer with attention
-        encoder = nn.TransformerEncoderLayer(embedding_dimension, 10)
-        self.transformer = nn.TransformerEncoder(encoder, 2)
+        encoder = nn.TransformerEncoderLayer(
+            embedding_dimension, n_tf_heads, n_tf_dim)
+        self.transformer = nn.TransformerEncoder(encoder, n_layers)
+
+        self.fully_connected = nn.Linear(n_kernels, 1, bias=False)
+        nn.init.xavier_uniform_(self.fully_connected.weight)
 
     def forward(self, query: Dict[str, torch.Tensor], document: Dict[str, torch.Tensor]) -> torch.Tensor:
-        # pylint: disable=arguments-differ
-
-        #
-        # prepare embedding tensors & paddings masks
-        # -------------------------------------------------------
-
-        # shape: (batch, query_max)
-        # > 1 to also mask oov terms
-        query_pad_oov_mask = (query["tokens"]["tokens"] > 0).float()
-        # shape: (batch, doc_max)
-        document_pad_oov_mask = (document["tokens"]["tokens"] > 0).float()
-
         # shape: (batch, query_max,emb_dim)
         query_embeddings = self.word_embeddings(query)
         # shape: (batch, document_max,emb_dim)
         document_embeddings = self.word_embeddings(document)
 
-        # todo
+        contextualized_query_embeddings = self.positional_encoding(
+            query_embeddings)
+        contextualized_document_embeddings = self.positional_encoding(
+            document_embeddings)
 
-        return output
+        transformed_query_embeddings = self.transformer(
+            contextualized_query_embeddings)
+        transformed_document_embeddings = self.transformer(
+            contextualized_document_embeddings)
+
+        translation_matrix = self.create_translation_matrix(
+            transformed_query_embeddings, transformed_document_embeddings)
+        kernel_matrix = self.apply_kernel_functions(translation_matrix)
+        masked_kernel_matrix = self.apply_masking(
+            kernel_matrix, query, document)
+        summed_kernels = self.apply_sums(masked_kernel_matrix)
+        return self.fully_connected(summed_kernels.T).squeeze(1)
 
     def kernel_mus(self, n_kernels: int):
         """
@@ -96,14 +101,50 @@ class TK(nn.Module):
         l_sigma += [0.5 * bin_size] * (n_kernels - 1)
         return l_sigma
 
-    def handle_contextualization(self):
-        pass
+    def create_translation_matrix(self, query: torch.Tensor, document: torch.Tensor) -> torch.Tensor:
+        normed_queries = query / \
+            torch.functional.norm(query, dim=-1, keepdim=True)
+        normed_document = document / \
+            torch.functional.norm(document, dim=-1, keepdim=True)
 
-    def create_term_by_term_interaction_matrix(self):
-        pass
+        translation_matrix = torch.bmm(
+            normed_queries, normed_document.permute(0, 2, 1))
 
-    def apply_kernel_functions(self):
-        pass
+        return translation_matrix
 
-    def handle_kernel_pooling(self):
-        pass
+    def apply_kernel_functions(self, translation_matrix: torch.Tensor) -> torch.Tensor:
+        batch_size, query_size, doc_size = translation_matrix.shape
+        K = torch.zeros(self.n_kernels, batch_size, query_size, doc_size)
+        if torch.cuda.is_available():
+            K = K.cuda()
+        for k in range(self.n_kernels):
+            K[k] = KNRM.gaussian(translation_matrix,
+                                 self.mu[..., k], self.sigma[..., k])
+
+        return K
+
+    def apply_masking(self, kernel_matrix: torch.Tensor, query, document) -> torch.Tensor:
+        # shape: (batch, query_max)
+        # > 1 to also mask oov terms
+        query_pad_oov_mask = (query["tokens"]["tokens"] > 0).float()
+        # shape: (batch, doc_max)
+        document_pad_oov_mask = (document["tokens"]["tokens"] > 0).float()
+
+        _, query_shape = query_pad_oov_mask.shape
+        _, doc_shape = document_pad_oov_mask.shape
+
+        masked_kernels = torch.mul(
+            kernel_matrix, query_pad_oov_mask.view(1, _, query_shape, 1))
+        masked_kernels = torch.mul(
+            masked_kernels, document_pad_oov_mask.view(1, _, 1, doc_shape))
+
+        return masked_kernels
+
+    def apply_sums(self, kernel_matrix: torch.Tensor) -> torch.Tensor:
+        return torch.sum(torch.log(torch.sum(kernel_matrix, dim=-1)), dim=-1)
+
+    @staticmethod
+    def gaussian(x: torch.Tensor, mu: float, sigma: float):
+        return torch.exp(
+            - torch.pow(x - mu, 2) / (2*torch.pow(sigma, 2))
+        )
