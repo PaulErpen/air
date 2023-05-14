@@ -129,7 +129,7 @@ However this was not at all the case.
 I suspect this has something to do with my AWS- and Google-Cloud-accounts being completely new.
 One might have to earn more "trust" with the cloud service provider to have higher priority on the machines.
 
-**PyTorch is surprisingly straight forward:**
+**PyTorch is surprisingly straightforward:**
 I was initially quite intimidated by Deep Learning frameworks.
 Using PyTorch for this project showed me that I do not have to be.
 If you understand the theoretical concepts of Deep Learning,
