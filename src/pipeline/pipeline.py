@@ -83,9 +83,9 @@ class Pipeline():
             save_to_disk=True,
             save_models_dir=config.save_models_dir,
             test_data_file=config.test_data,
-            test_data_qrels=config.qrels,
-            fira_data_file=config.fira_data_file,
-            fira_qrel_file=config.fira_qrel_file
+            test_data_qrels=config.qurels,
+            fira_data_file=config.fira_tuples,
+            fira_qrel_file=config.fira_qrels
         )
 
     def __init__(self,
