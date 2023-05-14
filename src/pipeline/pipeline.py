@@ -41,7 +41,7 @@ class PlainMetricsCalculator:
         return calculate_metrics_plain(ranking, qrels, binarization_point, return_per_query)
 
 
-class TrainHandler():
+class Pipeline():
     @classmethod
     def from_config(cls, config: Config):
         vocab = Vocabulary.from_files(config.vocab_directory)

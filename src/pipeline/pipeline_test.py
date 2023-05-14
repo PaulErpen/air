@@ -1,12 +1,12 @@
 import unittest
-from .train_handler import TrainHandler
+from .pipeline import Pipeline
 from ..config.config import create_base_config
 import os
 import torch
 import shutil
 
 
-class TrainHandlerTest(unittest.TestCase):
+class PipelineTest(unittest.TestCase):
     def setUp(self):
         self.test_model_dir = "./test_models"
         os.mkdir(self.test_model_dir)
@@ -14,12 +14,12 @@ class TrainHandlerTest(unittest.TestCase):
         self.base_config = create_base_config()
 
     def test_from_config(self):
-        handler = TrainHandler.from_config(self.base_config)
+        handler = Pipeline.from_config(self.base_config)
 
-        self.assertTrue(isinstance(handler, TrainHandler))
+        self.assertTrue(isinstance(handler, Pipeline))
 
     def test_train_loop(self):
-        handler = TrainHandler(
+        handler = Pipeline(
             model_type="mocked",
             model=MockedModel(),
             vocab=None,
@@ -36,7 +36,7 @@ class TrainHandlerTest(unittest.TestCase):
         handler.train()
 
     def test_train_loop_save_to_disk(self):
-        handler = TrainHandler(
+        handler = Pipeline(
             model_type="mocked",
             model=MockedModel(),
             vocab=None,
@@ -57,7 +57,7 @@ class TrainHandlerTest(unittest.TestCase):
         self.assertTrue(len(models) == 10)
 
     def test_train_loop_early_stopping(self):
-        handler = TrainHandler(
+        handler = Pipeline(
             model_type="mocked",
             model=MockedModel(),
             vocab=None,
