@@ -274,6 +274,8 @@ class Pipeline():
             if not os.path.exists(path_qrels):
                 raise Exception(f"Path \"{path_qrels}\" does not exist!")
 
+            curr_qurels = load_qrels(path_qrels)
+
             for model_name, model in models:
 
                 _tuple_reader = IrLabeledTupleDatasetReader(
@@ -300,7 +302,7 @@ class Pipeline():
                     validations_dict[query_id].append(doc_id)
 
                 metrics = self.metric_calculator.calculate_metrics(
-                    validations_dict, self.qrels)
+                    validations_dict, curr_qurels)
 
                 summary_dict["model"].append(model_name)
                 summary_dict["data_set"].append(data_set_name)
