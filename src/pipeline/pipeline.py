@@ -81,7 +81,11 @@ class Pipeline():
             validation_data_loader=validation_data_loader,
             metric_calculator=PlainMetricsCalculator(),
             save_to_disk=True,
-            save_models_dir=config.save_models_dir
+            save_models_dir=config.save_models_dir,
+            test_data_file=config.test_data,
+            test_data_qrels=config.qrels,
+            fira_data_file=config.fira_data_file,
+            fira_qrel_file=config.fira_qrel_file
         )
 
     def __init__(self,
@@ -96,7 +100,11 @@ class Pipeline():
                  validation_data_loader,
                  metric_calculator,
                  save_to_disk: bool,
-                 save_models_dir: str):
+                 save_models_dir: str,
+                 test_data_file: str,
+                 test_data_qrels: str,
+                 fira_data_file: str,
+                 fira_qrel_file: str):
         self.device = self.get_device()
 
         self.model_type = model_type
@@ -111,6 +119,11 @@ class Pipeline():
         self.metric_calculator = metric_calculator
         self.save_to_disk = save_to_disk
         self.save_models_dir = save_models_dir
+
+        self.test_data_sets = [
+            ("ms marco", test_data_file, test_data_qrels),
+            ("fira 22", fira_data_file, fira_qrel_file)
+        ]
 
     def get_device(self) -> torch.device:
         if torch.cuda.is_available():
@@ -206,13 +219,6 @@ class Pipeline():
                     break
 
     def evaluate(self):
-        test_data_sets = [
-            ("ms marco", "./data/Part-2/msmarco_tuples.test.tsv",
-             "./data/Part-2/msmarco_qrels.txt"),
-            ("fira 22", "./data/Part-2/fira-22.tuples.tsv",
-             "./data/Part-1/fira-22.baseline-qrels.tsv")
-        ]
-
         map_location = "cpu"
         if torch.cuda.is_available():
             def map_location(storage, loc): return storage.cuda()
@@ -261,7 +267,7 @@ class Pipeline():
             'MAP@1000': []
         }
 
-        for data_set_name, path_data, path_qrels in test_data_sets:
+        for data_set_name, path_data, path_qrels in self.test_data_sets:
 
             if not os.path.exists(path_data):
                 raise Exception(f"Path \"{path_data}\" does not exist!")

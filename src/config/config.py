@@ -11,15 +11,20 @@ class Config:
                  validation_data: str,
                  test_data: str,
                  qurels: str,
-                 save_models_dir: str):
+                 save_models_dir: str,
+                 fira_tuples: str,
+                 fira_qrels: str):
         self.vocab_directory: str = vocab_directory
         self.pre_trained_embedding: str = pre_trained_embedding
-        self.model: ModelType = model
+        self.model: str = model
         self.train_data: str = train_data
         self.validation_data: str = validation_data
         self.test_data: str = test_data
         self.qurels: str = qurels
         self.save_models_dir: str = save_models_dir
+        self.fira_tuples = fira_tuples
+        self.fira_qrels = fira_qrels
+
         self.validate()
 
     def validate(self):
@@ -70,6 +75,16 @@ class Config:
             raise Exception(
                 "Configuration-Error: save_models_dir is not a directory!")
 
+        if not os.path.exists(self.fira_qrels):
+            raise Exception("Configuration-Error: fira_qrels does not exist!")
+        if not os.path.isfile(self.fira_qrels):
+            raise Exception("Configuration-Error: fira_qrels is not a file!")
+
+        if not os.path.exists(self.fira_tuples):
+            raise Exception("Configuration-Error: fira_tuples does not exist!")
+        if not os.path.isfile(self.fira_tuples):
+            raise Exception("Configuration-Error: fira_tuples is not a file!")
+
 
 def create_base_config():
     return Config(
@@ -80,5 +95,7 @@ def create_base_config():
         validation_data="./data/Part-2/msmarco_tuples.validation.tsv",
         test_data="./data/Part-2/msmarco_tuples.test.tsv",
         qurels="./data/Part-2/msmarco_qrels.txt",
-        save_models_dir="./models"
+        save_models_dir="./models",
+        fira_tuples="./data/Part-2/fira-22.tuples.tsv",
+        fira_qrels="./data/Part-1/fira-22.baseline-qrels.tsv"
     )
