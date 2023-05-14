@@ -97,11 +97,12 @@ class Pipeline():
                  metric_calculator,
                  save_to_disk: bool,
                  save_models_dir: str):
+        self.device = self.get_device()
 
         self.model_type = model_type
         self.model = model
         self.vocab = vocab
-        self.word_embedder = word_embedder
+        self.word_embedder = word_embedder.to(self.device)
         self.criterion = criterion
         self.optimizer = optimizer
         self.qrels = qrels
@@ -110,8 +111,6 @@ class Pipeline():
         self.metric_calculator = metric_calculator
         self.save_to_disk = save_to_disk
         self.save_models_dir = save_models_dir
-
-        self.device = self.get_device()
 
     def get_device(self) -> torch.device:
         if torch.cuda.is_available():
@@ -214,11 +213,17 @@ class Pipeline():
              "./data/Part-1/fira-22.baseline-qrels.tsv")
         ]
 
+        map_location = "cpu"
+        if torch.cuda.is_available():
+            def map_location(storage, loc): return storage.cuda()
+
         best_knrm = get_model("knrm", self.word_embedder)
-        best_knrm.load_state_dict(torch.load('./models/knrm-epoch-0.pt'))
+        best_knrm.load_state_dict(torch.load(
+            './models/knrm-epoch-0.pt', map_location=map_location))
 
         best_tk = get_model("tk", self.word_embedder)
-        best_tk.load_state_dict(torch.load('./models/tk-epoch-0.pt'))
+        best_tk.load_state_dict(torch.load(
+            './models/tk-epoch-0.pt', map_location=map_location))
 
         models = [
             ("knrm", best_knrm),
@@ -271,17 +276,17 @@ class Pipeline():
                 _tuple_reader.index_with(self.vocab)
                 loader = PyTorchDataLoader(_tuple_reader, batch_size=128)
 
-                scores = []
+                all_scores = []
                 for batch in Tqdm.tqdm(loader):
                     batch = self.move_to_device(batch)
                     query_tokens = batch['query_tokens']
                     doc_tokens = batch['doc_tokens']
-                    scores = model(query_tokens, doc_tokens)
-                    scores.extend(list(
+                    scores = model.forward(query_tokens, doc_tokens)
+                    all_scores.extend(list(
                         map(list, zip(batch['query_id'], batch['doc_id'], scores.tolist()))))
 
                 sorted_output = sorted(
-                    scores, key=lambda x: x[2])
+                    all_scores, key=lambda x: x[2])
                 validations_dict = {}
                 for query_id, doc_id, ranking in sorted_output:
                     if query_id not in validations_dict:
