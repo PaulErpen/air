@@ -231,6 +231,10 @@ class Pipeline():
         best_tk.load_state_dict(torch.load(
             './models/tk-epoch-0.pt', map_location=map_location))
 
+        if torch.cuda.is_available():
+            best_knrm.cuda()
+            best_tk.cuda()
+
         models = [
             ("knrm", best_knrm),
             ("tk", best_tk)
