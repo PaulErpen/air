@@ -208,16 +208,17 @@ class Pipeline():
 
     def evaluate(self):
         test_data_sets = [
-            ("ms marco", "../data/Part-2/msmarco_tuples.test.tsv", "msmarco_qrels.txt"),
-            ("fira 22", "../data/Part-2/fira-22.tuples.tsv",
-             "fira-22.baseline-qrels.tsv")
+            ("ms marco", "./data/Part-2/msmarco_tuples.test.tsv",
+             "./data/Part-2/msmarco_qrels.txt"),
+            ("fira 22", "./data/Part-2/fira-22.tuples.tsv",
+             "./data/Part-1/fira-22.baseline-qrels.tsv")
         ]
 
         best_knrm = get_model("knrm", self.word_embedder)
-        best_knrm.load_state_dict(torch.load('/some/path/dqdwqdq_best.pth'))
+        best_knrm.load_state_dict(torch.load('./models/knrm-epoch-0.pt'))
 
         best_tk = get_model("tk", self.word_embedder)
-        best_tk.load_state_dict(torch.load('/some/path/dqdwqdq_best.pth'))
+        best_tk.load_state_dict(torch.load('./models/tk-epoch-0.pt'))
 
         models = [
             ("knrm", best_knrm),
