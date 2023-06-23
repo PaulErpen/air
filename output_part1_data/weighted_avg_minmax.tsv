@@ -54,7 +54,7 @@ rob_q_FBIS3-31466	Q0	rob_FBIS3-30525	3
 rob_q_FBIS3-9308	Q0	rob_FBIS3-30758	0
 rob_q_FBIS3-8747	Q0	rob_FBIS3-30578	2
 rob_q_FT924-3666	Q0	rob_FBIS3-3088	2
-rob_q_FBIS3-16161	Q0	rob_FBIS3-3201	1
+rob_q_FBIS3-16161	Q0	rob_FBIS3-3201	0
 rob_q_FBIS3-31496	Q0	rob_FBIS3-31496	2
 rob_q_FBIS3-52018	Q0	rob_FBIS3-32237	2
 rob_q_FBIS3-33507	Q0	rob_FBIS3-32424	2
@@ -95,7 +95,7 @@ rob_q_FR940404-2-00194	Q0	rob_FBIS3-47262	2
 rob_q_LA022790-0090	Q0	rob_FBIS3-48831	1
 rob_q_FBIS4-66579	Q0	rob_FBIS3-48962	1
 rob_q_FBIS3-49229	Q0	rob_FBIS3-49596	3
-rob_q_FBIS4-8672	Q0	rob_FBIS3-49609	1
+rob_q_FBIS4-8672	Q0	rob_FBIS3-49609	0
 rob_q_FT924-1422	Q0	rob_FBIS3-51035	0
 rob_q_FBIS4-33353	Q0	rob_FBIS3-51075	2
 rob_q_FBIS3-51409	Q0	rob_FBIS3-51409	2
@@ -1053,7 +1053,7 @@ rob_q_FBIS3-9308	Q0	rob_FBIS3-30758	0
 rob_q_FT924-3666	Q0	rob_FBIS3-3088	2
 rob_q_FBIS3-31496	Q0	rob_FBIS3-31496	2
 rob_q_FBIS3-33507	Q0	rob_FBIS3-32424	2
-rob_q_FBIS3-16161	Q0	rob_FBIS3-3201	1
+rob_q_FBIS3-16161	Q0	rob_FBIS3-3201	0
 rob_q_FBIS3-52018	Q0	rob_FBIS3-32237	2
 rob_q_FBIS4-2703	Q0	rob_FBIS3-3413	3
 rob_q_FBIS3-43876	Q0	rob_FBIS3-343	2
@@ -1092,7 +1092,7 @@ rob_q_FR940404-2-00194	Q0	rob_FBIS3-47262	2
 rob_q_FBIS4-66579	Q0	rob_FBIS3-48962	1
 rob_q_LA022790-0090	Q0	rob_FBIS3-48831	1
 rob_q_FBIS3-49229	Q0	rob_FBIS3-49596	3
-rob_q_FBIS4-8672	Q0	rob_FBIS3-49609	1
+rob_q_FBIS4-8672	Q0	rob_FBIS3-49609	0
 rob_q_FT924-1422	Q0	rob_FBIS3-51035	0
 rob_q_FBIS3-51467	Q0	rob_FBIS3-51756	2
 rob_q_FBIS4-58446	Q0	rob_FBIS3-52164	2
@@ -2046,7 +2046,7 @@ rob_q_FBIS3-8747	Q0	rob_FBIS3-30578	2
 rob_q_FBIS3-9308	Q0	rob_FBIS3-30758	0
 rob_q_FT924-3666	Q0	rob_FBIS3-3088	2
 rob_q_FBIS3-31496	Q0	rob_FBIS3-31496	2
-rob_q_FBIS3-16161	Q0	rob_FBIS3-3201	1
+rob_q_FBIS3-16161	Q0	rob_FBIS3-3201	0
 rob_q_FBIS3-52018	Q0	rob_FBIS3-32237	2
 rob_q_FBIS3-33507	Q0	rob_FBIS3-32424	2
 rob_q_FBIS4-2703	Q0	rob_FBIS3-3413	3
@@ -2086,7 +2086,7 @@ rob_q_FR940404-2-00194	Q0	rob_FBIS3-47262	2
 rob_q_LA022790-0090	Q0	rob_FBIS3-48831	1
 rob_q_FBIS4-66579	Q0	rob_FBIS3-48962	1
 rob_q_FBIS3-49229	Q0	rob_FBIS3-49596	3
-rob_q_FBIS4-8672	Q0	rob_FBIS3-49609	1
+rob_q_FBIS4-8672	Q0	rob_FBIS3-49609	0
 rob_q_FT924-1422	Q0	rob_FBIS3-51035	0
 rob_q_FBIS4-33353	Q0	rob_FBIS3-51075	2
 rob_q_FBIS3-51409	Q0	rob_FBIS3-51409	2
@@ -6472,7 +6472,7 @@ rob_qq_FBIS4-66510	Q0	rob_FBIS4-66510	3
 rob_qq_FBIS4-66528	Q0	rob_FBIS4-66528	3
 rob_q_FBIS4-45003	Q0	rob_FBIS4-66702	1
 rob_qq_FBIS4-67109	Q0	rob_FBIS4-67109	3
-rob_q_FT932-1476	Q0	rob_FBIS4-67291	1
+rob_q_FT932-1476	Q0	rob_FBIS4-67291	2
 rob_qq_FBIS4-68149	Q0	rob_FBIS4-68149	3
 rob_q_FBIS4-68206	Q0	rob_FBIS4-68206	2
 rob_q_FT924-9640	Q0	rob_FBIS4-6837	0
@@ -8469,7 +8469,7 @@ rob_qq_FBIS4-66510	Q0	rob_FBIS4-66510	3
 rob_qq_FBIS4-66528	Q0	rob_FBIS4-66528	3
 rob_q_FBIS4-45003	Q0	rob_FBIS4-66702	1
 rob_qq_FBIS4-67109	Q0	rob_FBIS4-67109	3
-rob_q_FT932-1476	Q0	rob_FBIS4-67291	1
+rob_q_FT932-1476	Q0	rob_FBIS4-67291	2
 rob_qq_FBIS4-68149	Q0	rob_FBIS4-68149	3
 rob_q_FBIS4-68206	Q0	rob_FBIS4-68206	2
 rob_q_FT924-9640	Q0	rob_FBIS4-6837	0
@@ -10466,7 +10466,7 @@ rob_qq_FBIS4-66510	Q0	rob_FBIS4-66510	3
 rob_qq_FBIS4-66528	Q0	rob_FBIS4-66528	3
 rob_q_FBIS4-45003	Q0	rob_FBIS4-66702	1
 rob_qq_FBIS4-67109	Q0	rob_FBIS4-67109	3
-rob_q_FT932-1476	Q0	rob_FBIS4-67291	1
+rob_q_FT932-1476	Q0	rob_FBIS4-67291	2
 rob_qq_FBIS4-68149	Q0	rob_FBIS4-68149	3
 rob_q_FBIS4-68206	Q0	rob_FBIS4-68206	2
 rob_q_FT924-9640	Q0	rob_FBIS4-6837	0
@@ -15789,7 +15789,7 @@ rob_qq_LA111589-0148	Q0	rob_LA040389-0047	1
 rob_qq_LA122690-0088	Q0	rob_LA040790-0061	2
 rob_qq_LA101490-0008	Q0	rob_LA040890-0056	2
 rob_qq_LA060890-0093	Q0	rob_LA040989-0086	0
-rob_qq_LA110590-0115	Q0	rob_LA041190-0124	0
+rob_qq_LA110590-0115	Q0	rob_LA041190-0124	1
 rob_qq_FR940706-2-00127	Q0	rob_LA041490-0093	0
 rob_qq_FR941212-1-00059	Q0	rob_LA041490-0098	0
 rob_qq_LA111289-0178	Q0	rob_LA041689-0120	0
@@ -16783,7 +16783,7 @@ rob_qq_FBIS4-68597	Q0	rob_LA032890-0046	0
 rob_qq_LA032689-0137	Q0	rob_LA032890-0106	1
 rob_qq_LA082690-0224	Q0	rob_LA033189-0156	0
 rob_qq_LA060890-0093	Q0	rob_LA040989-0086	0
-rob_qq_LA110590-0115	Q0	rob_LA041190-0124	0
+rob_qq_LA110590-0115	Q0	rob_LA041190-0124	1
 rob_qq_FT944-9150	Q0	rob_LA040389-0044	3
 rob_qq_LA111589-0148	Q0	rob_LA040389-0047	1
 rob_qq_LA122690-0088	Q0	rob_LA040790-0061	2
@@ -17785,7 +17785,7 @@ rob_qq_LA111589-0148	Q0	rob_LA040389-0047	1
 rob_qq_LA122690-0088	Q0	rob_LA040790-0061	2
 rob_qq_LA101490-0008	Q0	rob_LA040890-0056	2
 rob_qq_LA060890-0093	Q0	rob_LA040989-0086	0
-rob_qq_LA110590-0115	Q0	rob_LA041190-0124	0
+rob_qq_LA110590-0115	Q0	rob_LA041190-0124	1
 rob_qq_FR940706-2-00127	Q0	rob_LA041490-0093	0
 rob_qq_FR941212-1-00059	Q0	rob_LA041490-0098	0
 rob_qq_LA111289-0178	Q0	rob_LA041689-0120	0
@@ -21431,7 +21431,7 @@ db_q_<dbpedia:Kerem_Çatay>	Q0	db_<dbpedia:Karadayı>	1
 db_q_<dbpedia:August_Friedrich_Wilhelm_Crome>	Q0	db_<dbpedia:Karl_Friedrich_Wilhelm_Dieterici>	1
 db_q_<dbpedia:2011_Slovak_Open_–_Women's_Singles>	Q0	db_<dbpedia:Kateryna_Bondarenko>	1
 db_q_<dbpedia:W._Roland_Stine>	Q0	db_<dbpedia:Katie_Kratz_Stine>	0
-db_q_<dbpedia:Kazma_SC>	Q0	db_<dbpedia:Kazma_SC>	2
+db_q_<dbpedia:Kazma_SC>	Q0	db_<dbpedia:Kazma_SC>	3
 db_q_<dbpedia:KCLI>	Q0	db_<dbpedia:KCLI_(AM)>	3
 db_q_<dbpedia:Farès_Benabderahmane>	Q0	db_<dbpedia:Kelly_Faris>	0
 db_q_<dbpedia:Volane>	Q0	db_<dbpedia:Kevin_Volans:_Hunting:Gathering>	0
@@ -21551,7 +21551,7 @@ db_q_<dbpedia:Junaid_Khan_(singer)>	Q0	db_<dbpedia:Masooma_Junaid>	1
 db_q_<dbpedia:Frank_Giorgini>	Q0	db_<dbpedia:Mass_Giorgini>	0
 db_q_<dbpedia:Joe_Mazzucco>	Q0	db_<dbpedia:Massimo_Mazzucco>	2
 db_q_<dbpedia:Miyazu_Domain>	Q0	db_<dbpedia:Matsudaira_Muneakira>	2
-db_q_<dbpedia:John_5>	Q0	db_<dbpedia:Matthew_5>	2
+db_q_<dbpedia:John_5>	Q0	db_<dbpedia:Matthew_5>	3
 db_q_<dbpedia:Matt_Striker>	Q0	db_<dbpedia:Matt_Osborne>	2
 db_q_<dbpedia:Maurice_Edmond_Müller>	Q0	db_<dbpedia:Maurice_Edmond_Müller>	3
 db_q_<dbpedia:Tetri_Bazar>	Q0	db_<dbpedia:Maya_Bazar>	0
@@ -22425,7 +22425,7 @@ db_q_<dbpedia:Aliabad,_Miyan_Jolgeh>	Q0	db_<dbpedia:Kalateh-ye_Aliabad,_Razavi_K
 db_q_<dbpedia:August_Friedrich_Wilhelm_Crome>	Q0	db_<dbpedia:Karl_Friedrich_Wilhelm_Dieterici>	1
 db_q_<dbpedia:2011_Slovak_Open_–_Women's_Singles>	Q0	db_<dbpedia:Kateryna_Bondarenko>	1
 db_q_<dbpedia:W._Roland_Stine>	Q0	db_<dbpedia:Katie_Kratz_Stine>	0
-db_q_<dbpedia:Kazma_SC>	Q0	db_<dbpedia:Kazma_SC>	2
+db_q_<dbpedia:Kazma_SC>	Q0	db_<dbpedia:Kazma_SC>	3
 db_q_<dbpedia:KCLI>	Q0	db_<dbpedia:KCLI_(AM)>	3
 db_q_<dbpedia:Farès_Benabderahmane>	Q0	db_<dbpedia:Kelly_Faris>	0
 db_q_<dbpedia:Volane>	Q0	db_<dbpedia:Kevin_Volans:_Hunting:Gathering>	0
@@ -22548,7 +22548,7 @@ db_q_<dbpedia:Junaid_Khan_(singer)>	Q0	db_<dbpedia:Masooma_Junaid>	1
 db_q_<dbpedia:Frank_Giorgini>	Q0	db_<dbpedia:Mass_Giorgini>	0
 db_q_<dbpedia:Joe_Mazzucco>	Q0	db_<dbpedia:Massimo_Mazzucco>	2
 db_q_<dbpedia:Miyazu_Domain>	Q0	db_<dbpedia:Matsudaira_Muneakira>	2
-db_q_<dbpedia:John_5>	Q0	db_<dbpedia:Matthew_5>	2
+db_q_<dbpedia:John_5>	Q0	db_<dbpedia:Matthew_5>	3
 db_q_<dbpedia:Matt_Striker>	Q0	db_<dbpedia:Matt_Osborne>	2
 db_q_<dbpedia:Maurice_Edmond_Müller>	Q0	db_<dbpedia:Maurice_Edmond_Müller>	3
 db_q_<dbpedia:Tetri_Bazar>	Q0	db_<dbpedia:Maya_Bazar>	0
@@ -23421,7 +23421,7 @@ db_q_<dbpedia:2011_Slovak_Open_–_Women's_Singles>	Q0	db_<dbpedia:Kateryna_Bond
 db_q_<dbpedia:W._Roland_Stine>	Q0	db_<dbpedia:Katie_Kratz_Stine>	0
 db_q_<dbpedia:Wincenty_Niemojowski>	Q0	db_<dbpedia:Kaliszanie>	2
 db_q_<dbpedia:Karl_Johansson>	Q0	db_<dbpedia:Kalle_Johansson>	2
-db_q_<dbpedia:Kazma_SC>	Q0	db_<dbpedia:Kazma_SC>	2
+db_q_<dbpedia:Kazma_SC>	Q0	db_<dbpedia:Kazma_SC>	3
 db_q_<dbpedia:KCLI>	Q0	db_<dbpedia:KCLI_(AM)>	3
 db_q_<dbpedia:Farès_Benabderahmane>	Q0	db_<dbpedia:Kelly_Faris>	0
 db_q_<dbpedia:Volane>	Q0	db_<dbpedia:Kevin_Volans:_Hunting:Gathering>	0
@@ -23544,7 +23544,7 @@ db_q_<dbpedia:Junaid_Khan_(singer)>	Q0	db_<dbpedia:Masooma_Junaid>	1
 db_q_<dbpedia:Frank_Giorgini>	Q0	db_<dbpedia:Mass_Giorgini>	0
 db_q_<dbpedia:Joe_Mazzucco>	Q0	db_<dbpedia:Massimo_Mazzucco>	2
 db_q_<dbpedia:Miyazu_Domain>	Q0	db_<dbpedia:Matsudaira_Muneakira>	2
-db_q_<dbpedia:John_5>	Q0	db_<dbpedia:Matthew_5>	2
+db_q_<dbpedia:John_5>	Q0	db_<dbpedia:Matthew_5>	3
 db_q_<dbpedia:Matt_Striker>	Q0	db_<dbpedia:Matt_Osborne>	2
 db_q_<dbpedia:Maurice_Edmond_Müller>	Q0	db_<dbpedia:Maurice_Edmond_Müller>	3
 db_q_<dbpedia:Tetri_Bazar>	Q0	db_<dbpedia:Maya_Bazar>	0
@@ -24823,7 +24823,7 @@ db_q_<dbpedia:Act_2:_The_Blood_and_the_Life_Eternal>	Q0	db_<dbpedia:The_Grace_(s
 db_q_<dbpedia:Forrest_L._Richardson>	Q0	db_<dbpedia:The_Hideout_Golf_Club>	2
 db_q_<dbpedia:Invincible_Youth>	Q0	db_<dbpedia:The_Invincible_Brothers_Maciste>	0
 db_q_<dbpedia:Maude_Turner_Gordon>	Q0	db_<dbpedia:The_Little_French_Girl>	1
-db_q_<dbpedia:Victoria_Madrigal>	Q0	db_<dbpedia:The_Madrigal_Cahills>	0
+db_q_<dbpedia:Victoria_Madrigal>	Q0	db_<dbpedia:The_Madrigal_Cahills>	1
 db_q_<dbpedia:Port_Plaza_Mall>	Q0	db_<dbpedia:The_Mall_at_Prince_Georges>	0
 db_q_<dbpedia:Mark_C._Ebersole>	Q0	db_<dbpedia:Theodore_E._Long>	2
 db_q_<dbpedia:Rags_to_Rufus>	Q0	db_<dbpedia:The_One_You_Love_(Rufus_Wainwright_song)>	2
@@ -25820,7 +25820,7 @@ db_q_<dbpedia:Act_2:_The_Blood_and_the_Life_Eternal>	Q0	db_<dbpedia:The_Grace_(s
 db_q_<dbpedia:Forrest_L._Richardson>	Q0	db_<dbpedia:The_Hideout_Golf_Club>	2
 db_q_<dbpedia:Invincible_Youth>	Q0	db_<dbpedia:The_Invincible_Brothers_Maciste>	0
 db_q_<dbpedia:Maude_Turner_Gordon>	Q0	db_<dbpedia:The_Little_French_Girl>	1
-db_q_<dbpedia:Victoria_Madrigal>	Q0	db_<dbpedia:The_Madrigal_Cahills>	0
+db_q_<dbpedia:Victoria_Madrigal>	Q0	db_<dbpedia:The_Madrigal_Cahills>	1
 db_q_<dbpedia:Port_Plaza_Mall>	Q0	db_<dbpedia:The_Mall_at_Prince_Georges>	0
 db_q_<dbpedia:Mark_C._Ebersole>	Q0	db_<dbpedia:Theodore_E._Long>	2
 db_q_<dbpedia:Rags_to_Rufus>	Q0	db_<dbpedia:The_One_You_Love_(Rufus_Wainwright_song)>	2
@@ -26815,7 +26815,7 @@ db_q_<dbpedia:Act_2:_The_Blood_and_the_Life_Eternal>	Q0	db_<dbpedia:The_Grace_(s
 db_q_<dbpedia:Invincible_Youth>	Q0	db_<dbpedia:The_Invincible_Brothers_Maciste>	0
 db_q_<dbpedia:Forrest_L._Richardson>	Q0	db_<dbpedia:The_Hideout_Golf_Club>	2
 db_q_<dbpedia:Maude_Turner_Gordon>	Q0	db_<dbpedia:The_Little_French_Girl>	1
-db_q_<dbpedia:Victoria_Madrigal>	Q0	db_<dbpedia:The_Madrigal_Cahills>	0
+db_q_<dbpedia:Victoria_Madrigal>	Q0	db_<dbpedia:The_Madrigal_Cahills>	1
 db_q_<dbpedia:Port_Plaza_Mall>	Q0	db_<dbpedia:The_Mall_at_Prince_Georges>	0
 db_q_<dbpedia:Mark_C._Ebersole>	Q0	db_<dbpedia:Theodore_E._Long>	2
 db_q_<dbpedia:Rags_to_Rufus>	Q0	db_<dbpedia:The_One_You_Love_(Rufus_Wainwright_song)>	2
@@ -27248,7 +27248,7 @@ trip_18302	Q0	trip_1102123	2
 trip_16172	Q0	trip_11021472	3
 trip_11656	Q0	trip_11023518	3
 trip_24331	Q0	trip_11023518	2
-trip_21570	Q0	trip_11023642	2
+trip_21570	Q0	trip_11023642	3
 trip_148293	Q0	trip_11025297	1
 trip_3317	Q0	trip_11025776	2
 trip_1189	Q0	trip_11025777	1
@@ -29961,7 +29961,7 @@ trip_64205	Q0	trip_9671557	3
 trip_40691	Q0	trip_9672073	1
 trip_509969	Q0	trip_9672073	1
 trip_98830	Q0	trip_9672507	0
-trip_18547	Q0	trip_9673859	1
+trip_18547	Q0	trip_9673859	0
 trip_1620	Q0	trip_9674775	2
 trip_134348	Q0	trip_9675406	3
 trip_132797	Q0	trip_9676262	3
@@ -30442,7 +30442,7 @@ trip_18302	Q0	trip_1102123	2
 trip_16172	Q0	trip_11021472	3
 trip_11656	Q0	trip_11023518	3
 trip_24331	Q0	trip_11023518	2
-trip_21570	Q0	trip_11023642	2
+trip_21570	Q0	trip_11023642	3
 trip_148293	Q0	trip_11025297	1
 trip_3317	Q0	trip_11025776	2
 trip_1189	Q0	trip_11025777	1
@@ -33155,7 +33155,7 @@ trip_64205	Q0	trip_9671557	3
 trip_40691	Q0	trip_9672073	1
 trip_509969	Q0	trip_9672073	1
 trip_98830	Q0	trip_9672507	0
-trip_18547	Q0	trip_9673859	1
+trip_18547	Q0	trip_9673859	0
 trip_1620	Q0	trip_9674775	2
 trip_134348	Q0	trip_9675406	3
 trip_132797	Q0	trip_9676262	3
@@ -33633,7 +33633,7 @@ trip_18302	Q0	trip_1102123	2
 trip_16172	Q0	trip_11021472	3
 trip_11656	Q0	trip_11023518	3
 trip_24331	Q0	trip_11023518	2
-trip_21570	Q0	trip_11023642	2
+trip_21570	Q0	trip_11023642	3
 trip_3317	Q0	trip_11025776	2
 trip_148293	Q0	trip_11025297	1
 trip_1189	Q0	trip_11025777	1
@@ -36341,7 +36341,7 @@ trip_64205	Q0	trip_9671557	3
 trip_40691	Q0	trip_9672073	1
 trip_509969	Q0	trip_9672073	1
 trip_98830	Q0	trip_9672507	0
-trip_18547	Q0	trip_9673859	1
+trip_18547	Q0	trip_9673859	0
 trip_1620	Q0	trip_9674775	2
 trip_134348	Q0	trip_9675406	3
 trip_132797	Q0	trip_9676262	3
@@ -36518,7 +36518,7 @@ trip_20603	Q0	trip_1002267	3
 trip_56900	Q0	trip_10026358	1
 trip_134115	Q0	trip_10030885	2
 trip_6917	Q0	trip_1003205	2
-trip_16172	Q0	trip_10036113	2
+trip_16172	Q0	trip_10036113	3
 trip_117552	Q0	trip_10044206	2
 trip_9816	Q0	trip_10050228	2
 trip_224029	Q0	trip_1006208	2
@@ -36908,7 +36908,7 @@ trip_140610	Q0	trip_11087381	1
 trip_7811	Q0	trip_11092127	2
 trip_12363	Q0	trip_11092862	3
 trip_13822	Q0	trip_11092980	2
-trip_48709	Q0	trip_11092980	2
+trip_48709	Q0	trip_11092980	3
 trip_84891	Q0	trip_11093375	1
 trip_7189	Q0	trip_11095326	2
 trip_19286	Q0	trip_11095406	3
@@ -37970,7 +37970,7 @@ trip_134115	Q0	trip_5877857	3
 trip_407216	Q0	trip_5877857	3
 trip_241772	Q0	trip_5877874	3
 trip_486467	Q0	trip_5878032	3
-trip_3092	Q0	trip_5878381	2
+trip_3092	Q0	trip_5878381	3
 trip_3115	Q0	trip_5878439	2
 trip_13491	Q0	trip_5878515	2
 trip_1331963	Q0	trip_5878820	3
@@ -38138,7 +38138,7 @@ trip_164823	Q0	trip_7173617	3
 trip_137884	Q0	trip_717689	1
 trip_18896	Q0	trip_719497	3
 trip_42961	Q0	trip_7196209	2
-trip_20435	Q0	trip_720572	1
+trip_20435	Q0	trip_720572	2
 trip_33928	Q0	trip_720829	2
 trip_49806	Q0	trip_720962	1
 trip_25851	Q0	trip_727179	3
@@ -38656,7 +38656,7 @@ trip_33275	Q0	trip_9168098	2
 trip_33339	Q0	trip_9168239	2
 trip_132679	Q0	trip_917022	3
 trip_18310	Q0	trip_9171186	1
-trip_29539	Q0	trip_9171311	2
+trip_29539	Q0	trip_9171311	1
 trip_21268	Q0	trip_9171965	1
 trip_20170	Q0	trip_9172025	2
 trip_257619	Q0	trip_9172061	3
@@ -39619,7 +39619,7 @@ trip_20603	Q0	trip_1002267	3
 trip_56900	Q0	trip_10026358	1
 trip_134115	Q0	trip_10030885	2
 trip_6917	Q0	trip_1003205	2
-trip_16172	Q0	trip_10036113	2
+trip_16172	Q0	trip_10036113	3
 trip_117552	Q0	trip_10044206	2
 trip_9816	Q0	trip_10050228	2
 trip_224029	Q0	trip_1006208	2
@@ -40011,7 +40011,7 @@ trip_140610	Q0	trip_11087381	1
 trip_7811	Q0	trip_11092127	2
 trip_12363	Q0	trip_11092862	3
 trip_13822	Q0	trip_11092980	2
-trip_48709	Q0	trip_11092980	2
+trip_48709	Q0	trip_11092980	3
 trip_84891	Q0	trip_11093375	1
 trip_7189	Q0	trip_11095326	2
 trip_19286	Q0	trip_11095406	3
@@ -41066,7 +41066,7 @@ trip_134115	Q0	trip_5877857	3
 trip_407216	Q0	trip_5877857	3
 trip_241772	Q0	trip_5877874	3
 trip_486467	Q0	trip_5878032	3
-trip_3092	Q0	trip_5878381	2
+trip_3092	Q0	trip_5878381	3
 trip_3115	Q0	trip_5878439	2
 trip_13491	Q0	trip_5878515	2
 trip_1331963	Q0	trip_5878820	3
@@ -41228,7 +41228,7 @@ trip_164823	Q0	trip_7173617	3
 trip_137884	Q0	trip_717689	1
 trip_18896	Q0	trip_719497	3
 trip_42961	Q0	trip_7196209	2
-trip_20435	Q0	trip_720572	1
+trip_20435	Q0	trip_720572	2
 trip_33928	Q0	trip_720829	2
 trip_49806	Q0	trip_720962	1
 trip_25851	Q0	trip_727179	3
@@ -41743,7 +41743,7 @@ trip_33275	Q0	trip_9168098	2
 trip_33339	Q0	trip_9168239	2
 trip_132679	Q0	trip_917022	3
 trip_18310	Q0	trip_9171186	1
-trip_29539	Q0	trip_9171311	2
+trip_29539	Q0	trip_9171311	1
 trip_21268	Q0	trip_9171965	1
 trip_20170	Q0	trip_9172025	2
 trip_257619	Q0	trip_9172061	3
@@ -42706,7 +42706,7 @@ trip_20603	Q0	trip_1002267	3
 trip_56900	Q0	trip_10026358	1
 trip_134115	Q0	trip_10030885	2
 trip_6917	Q0	trip_1003205	2
-trip_16172	Q0	trip_10036113	2
+trip_16172	Q0	trip_10036113	3
 trip_117552	Q0	trip_10044206	2
 trip_9816	Q0	trip_10050228	2
 trip_224029	Q0	trip_1006208	2
@@ -43095,7 +43095,7 @@ trip_140610	Q0	trip_11087381	1
 trip_7811	Q0	trip_11092127	2
 trip_12363	Q0	trip_11092862	3
 trip_13822	Q0	trip_11092980	2
-trip_48709	Q0	trip_11092980	2
+trip_48709	Q0	trip_11092980	3
 trip_84891	Q0	trip_11093375	1
 trip_7189	Q0	trip_11095326	2
 trip_19286	Q0	trip_11095406	3
@@ -44149,7 +44149,7 @@ trip_134115	Q0	trip_5877857	3
 trip_407216	Q0	trip_5877857	3
 trip_241772	Q0	trip_5877874	3
 trip_486467	Q0	trip_5878032	3
-trip_3092	Q0	trip_5878381	2
+trip_3092	Q0	trip_5878381	3
 trip_3115	Q0	trip_5878439	2
 trip_13491	Q0	trip_5878515	2
 trip_1331963	Q0	trip_5878820	3
@@ -44319,7 +44319,7 @@ trip_164823	Q0	trip_7173617	3
 trip_137884	Q0	trip_717689	1
 trip_18896	Q0	trip_719497	3
 trip_42961	Q0	trip_7196209	2
-trip_20435	Q0	trip_720572	1
+trip_20435	Q0	trip_720572	2
 trip_79751	Q0	trip_7338854	2
 trip_7411	Q0	trip_747807	2
 trip_25851	Q0	trip_727179	3
@@ -44834,7 +44834,7 @@ trip_33275	Q0	trip_9168098	2
 trip_33339	Q0	trip_9168239	2
 trip_132679	Q0	trip_917022	3
 trip_18310	Q0	trip_9171186	1
-trip_29539	Q0	trip_9171311	2
+trip_29539	Q0	trip_9171311	1
 trip_21268	Q0	trip_9171965	1
 trip_20170	Q0	trip_9172025	2
 trip_257619	Q0	trip_9172061	3
@@ -47386,7 +47386,7 @@ trip_49806	Q0	trip_727165	2
 trip_117925	Q0	trip_7284395	1
 trip_270670	Q0	trip_7350236	3
 trip_50720	Q0	trip_736997	2
-trip_21205	Q0	trip_7419484	2
+trip_21205	Q0	trip_7419484	3
 trip_36377	Q0	trip_7447907	1
 trip_41284	Q0	trip_7510778	2
 trip_84891	Q0	trip_755189	3
@@ -47606,7 +47606,7 @@ trip_24337	Q0	trip_8926271	1
 trip_207426	Q0	trip_892751	3
 trip_12363	Q0	trip_8927668	3
 trip_48670	Q0	trip_8929734	1
-trip_170605	Q0	trip_8930840	1
+trip_170605	Q0	trip_8930840	2
 trip_1503	Q0	trip_8933426	2
 trip_257619	Q0	trip_8933480	2
 trip_28288	Q0	trip_8934369	2
@@ -48031,7 +48031,7 @@ trip_143018	Q0	trip_9328486	0
 trip_50162	Q0	trip_9328498	0
 trip_407444	Q0	trip_9328499	0
 trip_327419	Q0	trip_9328500	0
-trip_11336	Q0	trip_9328502	0
+trip_11336	Q0	trip_9328502	1
 trip_1474895	Q0	trip_9328502	0
 trip_24	Q0	trip_9328502	0
 trip_24707	Q0	trip_9328502	0
@@ -50388,7 +50388,7 @@ trip_49806	Q0	trip_727165	2
 trip_117925	Q0	trip_7284395	1
 trip_270670	Q0	trip_7350236	3
 trip_50720	Q0	trip_736997	2
-trip_21205	Q0	trip_7419484	2
+trip_21205	Q0	trip_7419484	3
 trip_36377	Q0	trip_7447907	1
 trip_41284	Q0	trip_7510778	2
 trip_84891	Q0	trip_755189	3
@@ -50613,7 +50613,7 @@ trip_24337	Q0	trip_8926271	1
 trip_207426	Q0	trip_892751	3
 trip_12363	Q0	trip_8927668	3
 trip_48670	Q0	trip_8929734	1
-trip_170605	Q0	trip_8930840	1
+trip_170605	Q0	trip_8930840	2
 trip_1503	Q0	trip_8933426	2
 trip_257619	Q0	trip_8933480	2
 trip_28288	Q0	trip_8934369	2
@@ -51029,7 +51029,7 @@ trip_143018	Q0	trip_9328486	0
 trip_50162	Q0	trip_9328498	0
 trip_407444	Q0	trip_9328499	0
 trip_327419	Q0	trip_9328500	0
-trip_11336	Q0	trip_9328502	0
+trip_11336	Q0	trip_9328502	1
 trip_24	Q0	trip_9328502	0
 trip_21643	Q0	trip_9330217	3
 trip_4776	Q0	trip_9330577	1
@@ -53372,7 +53372,7 @@ trip_49806	Q0	trip_727165	2
 trip_117925	Q0	trip_7284395	1
 trip_270670	Q0	trip_7350236	3
 trip_50720	Q0	trip_736997	2
-trip_21205	Q0	trip_7419484	2
+trip_21205	Q0	trip_7419484	3
 trip_36377	Q0	trip_7447907	1
 trip_41284	Q0	trip_7510778	2
 trip_84891	Q0	trip_755189	3
@@ -53600,7 +53600,7 @@ trip_24337	Q0	trip_8926271	1
 trip_207426	Q0	trip_892751	3
 trip_12363	Q0	trip_8927668	3
 trip_48670	Q0	trip_8929734	1
-trip_170605	Q0	trip_8930840	1
+trip_170605	Q0	trip_8930840	2
 trip_1503	Q0	trip_8933426	2
 trip_257619	Q0	trip_8933480	2
 trip_28288	Q0	trip_8934369	2
@@ -54025,7 +54025,7 @@ trip_143018	Q0	trip_9328486	0
 trip_407444	Q0	trip_9328499	0
 trip_50162	Q0	trip_9328498	0
 trip_327419	Q0	trip_9328500	0
-trip_11336	Q0	trip_9328502	0
+trip_11336	Q0	trip_9328502	1
 trip_1474895	Q0	trip_9328502	0
 trip_24	Q0	trip_9328502	0
 trip_24707	Q0	trip_9328502	0
@@ -55883,7 +55883,7 @@ trip_10024	Q0	trip_5002249	2
 trip_1154423	Q0	trip_5002354	1
 trip_208907	Q0	trip_5003775	1
 trip_40190	Q0	trip_5007327	2
-trip_625402	Q0	trip_5008968	2
+trip_625402	Q0	trip_5008968	3
 trip_240312	Q0	trip_5009638	3
 trip_1559843	Q0	trip_5009048	0
 trip_21570	Q0	trip_5009048	0
@@ -55944,7 +55944,7 @@ trip_13770	Q0	trip_5224792	2
 trip_3317	Q0	trip_5224792	1
 trip_8907	Q0	trip_5226110	3
 trip_52953	Q0	trip_5226913	0
-trip_802280	Q0	trip_5226949	2
+trip_802280	Q0	trip_5226949	1
 trip_1178167	Q0	trip_522742	2
 trip_49191	Q0	trip_5227912	1
 trip_57755	Q0	trip_5227912	1
@@ -56691,7 +56691,7 @@ trip_8962	Q0	trip_8991367	2
 trip_83020	Q0	trip_8991368	2
 trip_270670	Q0	trip_8992872	2
 trip_34839	Q0	trip_8992916	3
-trip_10888	Q0	trip_8992964	2
+trip_10888	Q0	trip_8992964	3
 trip_43150	Q0	trip_8992988	2
 trip_18783	Q0	trip_8995483	2
 trip_86723	Q0	trip_8996141	1
@@ -57373,7 +57373,7 @@ trip_1719	Q0	trip_9472881	3
 trip_6493	Q0	trip_9473874	3
 trip_34836	Q0	trip_9474696	2
 trip_7200	Q0	trip_9475202	1
-trip_23137	Q0	trip_9475278	2
+trip_23137	Q0	trip_9475278	1
 trip_266971	Q0	trip_9476837	3
 trip_3756	Q0	trip_9477358	2
 trip_79390	Q0	trip_9477461	2
@@ -58821,7 +58821,7 @@ trip_10024	Q0	trip_5002249	2
 trip_1154423	Q0	trip_5002354	1
 trip_208907	Q0	trip_5003775	1
 trip_40190	Q0	trip_5007327	2
-trip_625402	Q0	trip_5008968	2
+trip_625402	Q0	trip_5008968	3
 trip_1559843	Q0	trip_5009048	0
 trip_21570	Q0	trip_5009048	0
 trip_240312	Q0	trip_5009638	3
@@ -58882,7 +58882,7 @@ trip_13770	Q0	trip_5224792	2
 trip_3317	Q0	trip_5224792	1
 trip_8907	Q0	trip_5226110	3
 trip_52953	Q0	trip_5226913	0
-trip_802280	Q0	trip_5226949	2
+trip_802280	Q0	trip_5226949	1
 trip_1178167	Q0	trip_522742	2
 trip_49191	Q0	trip_5227912	1
 trip_57755	Q0	trip_5227912	1
@@ -59625,7 +59625,7 @@ trip_28309	Q0	trip_8991404	1
 trip_64468	Q0	trip_8991892	1
 trip_270670	Q0	trip_8992872	2
 trip_34839	Q0	trip_8992916	3
-trip_10888	Q0	trip_8992964	2
+trip_10888	Q0	trip_8992964	3
 trip_43150	Q0	trip_8992988	2
 trip_124955	Q0	trip_8994293	2
 trip_71720	Q0	trip_8994990	1
@@ -60308,7 +60308,7 @@ trip_1719	Q0	trip_9472881	3
 trip_6493	Q0	trip_9473874	3
 trip_34836	Q0	trip_9474696	2
 trip_7200	Q0	trip_9475202	1
-trip_23137	Q0	trip_9475278	2
+trip_23137	Q0	trip_9475278	1
 trip_266971	Q0	trip_9476837	3
 trip_3756	Q0	trip_9477358	2
 trip_79390	Q0	trip_9477461	2
@@ -61751,7 +61751,7 @@ trip_10024	Q0	trip_5002249	2
 trip_1154423	Q0	trip_5002354	1
 trip_208907	Q0	trip_5003775	1
 trip_40190	Q0	trip_5007327	2
-trip_625402	Q0	trip_5008968	2
+trip_625402	Q0	trip_5008968	3
 trip_1559843	Q0	trip_5009048	0
 trip_21570	Q0	trip_5009048	0
 trip_240312	Q0	trip_5009638	3
@@ -61812,7 +61812,7 @@ trip_13770	Q0	trip_5224792	2
 trip_3317	Q0	trip_5224792	1
 trip_8907	Q0	trip_5226110	3
 trip_52953	Q0	trip_5226913	0
-trip_802280	Q0	trip_5226949	2
+trip_802280	Q0	trip_5226949	1
 trip_1178167	Q0	trip_522742	2
 trip_49191	Q0	trip_5227912	1
 trip_57755	Q0	trip_5227912	1
@@ -62559,7 +62559,7 @@ trip_28309	Q0	trip_8991404	1
 trip_64468	Q0	trip_8991892	1
 trip_270670	Q0	trip_8992872	2
 trip_34839	Q0	trip_8992916	3
-trip_10888	Q0	trip_8992964	2
+trip_10888	Q0	trip_8992964	3
 trip_43150	Q0	trip_8992988	2
 trip_124955	Q0	trip_8994293	2
 trip_71720	Q0	trip_8994990	1
@@ -63240,7 +63240,7 @@ trip_34836	Q0	trip_9474696	2
 trip_7200	Q0	trip_9475202	1
 trip_79390	Q0	trip_9477461	2
 trip_17229	Q0	trip_9477477	2
-trip_23137	Q0	trip_9475278	2
+trip_23137	Q0	trip_9475278	1
 trip_266971	Q0	trip_9476837	3
 trip_3756	Q0	trip_9477358	2
 trip_56740	Q0	trip_9477843	3
@@ -64547,7 +64547,6 @@ trip_549298	Q0	trip_4783286	3
 trip_20306	Q0	trip_4783391	1
 trip_55	Q0	trip_4783573	2
 trip_377782	Q0	trip_4785029	2
-trip_7387	Q0	trip_4785898	1
 trip_26042	Q0	trip_4786731	3
 trip_12914	Q0	trip_4787219	2
 trip_124955	Q0	trip_4787422	2
