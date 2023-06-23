@@ -18,9 +18,10 @@ Our rational behind that was that for each task there would be one person that i
 We updated each other on the progress and lessons learned in multiple group meetings over the duration of the exercise.
 
 We divided the work in the following way:
-    * Part 1: Julia Putz
-    * Part 2: Paul Erpenstein
-    * Part 3: Dario Giovanni
+
+* Part 1: Julia Putz
+* Part 2: Paul Erpenstein
+* Part 3: Dario Giovanni
 
 ## Part 1: Data aggregation process
 
