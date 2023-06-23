@@ -121,8 +121,10 @@ class Pipeline():
         self.save_models_dir = save_models_dir
 
         self.test_data_sets = [
-            ("ms marco", test_data_file, test_data_qrels),
-            ("fira 22", fira_data_file, fira_qrel_file)
+            #("ms marco", test_data_file, test_data_qrels),
+            #("fira 22", fira_data_file, fira_qrel_file)
+            ("fira 22 (avg log qrels)", fira_data_file, "./data/output_part1_data/weighted_avg_log.tsv"),
+            ("fira 22 (avg minmax qrels)", fira_data_file, "./data/output_part1_data/weighted_avg_minmax.tsv")
         ]
 
     def get_device(self) -> torch.device:
@@ -292,7 +294,7 @@ class Pipeline():
                 for batch in Tqdm.tqdm(loader):
                     batch = self.move_to_device(batch)
                     query_tokens = batch['query_tokens']
-                    doc_tokens = batch['doc_tokens']
+                    doc_tokens = batch['doc_tokens']validations_dict
                     scores = model.forward(query_tokens, doc_tokens)
                     all_scores.extend(list(
                         map(list, zip(batch['query_id'], batch['doc_id'], scores.tolist()))))
