@@ -104,7 +104,14 @@ This is how I managed to run my `python 3.6` code on Colab.
 
 ### Evaluation
 
-TODO
+![evaluation.png](./figures/evaluation.png)
+
+As we can see the models perform much better on the fira 22 data sets.
+MS Marco performance is much worse across the board.
+There does not seem to be a significant difference between the baseline fira qrels and the qrels created in part 1.
+Furthermore the scores of TK and KNRM are **exactly equal**.
+This is highly indicative of another bug in the complex pipeline we have created.
+We did not manage to diagnose and fix this bug in a reasonable time and therefore opted to present the results as is.
 
 ### Lessons learned
 
