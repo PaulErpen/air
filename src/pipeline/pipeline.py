@@ -122,9 +122,9 @@ class Pipeline():
 
         self.test_data_sets = [
             ("ms marco", test_data_file, test_data_qrels),
-            ("fira 22", fira_data_file, fira_qrel_file),
-            ("fira 22 (avg log qrels)", fira_data_file, "./data/output_part1_data/weighted_avg_log.tsv"),
-            ("fira 22 (avg minmax qrels)", fira_data_file, "./data/output_part1_data/weighted_avg_minmax.tsv")
+            ("fira 22 (baseline)", fira_data_file, fira_qrel_file),
+            ("fira 22 (custom aggregation)", fira_data_file,
+             "./data/output_part1_data/weighted_avg_cosine_similarity.tsv")
         ]
 
     def get_device(self) -> torch.device:
@@ -238,7 +238,7 @@ class Pipeline():
             best_tk.cuda()
 
         models = [
-            #("knrm", best_knrm),
+            ("knrm", best_knrm),
             ("tk", best_tk)
         ]
 

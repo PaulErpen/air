@@ -113,6 +113,13 @@ Furthermore the scores of TK and KNRM are **exactly equal**.
 This is highly indicative of another bug in the complex pipeline we have created.
 We did not manage to diagnose and fix this bug in a reasonable time and therefore opted to present the results as is.
 
+![evaluation.png](./figures/eval-table.png)
+
+In the above table you can see that the custom aggregation strategy from part 1 slightly wins out over the baseline that was provided.
+The scores at rank 10 are all higher.
+There are also less queries with no relevant results at rank 10.
+This indicates that the custom aggregation provides a better test set.
+
 ### Lessons learned
 
 This exercise had its ups and downs.
